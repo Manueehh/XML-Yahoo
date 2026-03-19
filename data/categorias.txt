@@ -1,0 +1,404 @@
+TOTAL documentos procesados: 178,641
+Combinaciones únicas de categoría: 398
+======================================================================
+
+MAINCAT                             SUBCAT                              CAT
+----------------------------------------------------------------------
+                                                                        
+Arts & Humanities                   Books & Authors                     Books & Authors
+Arts & Humanities                   Dancing                             Dancing
+Arts & Humanities                   Genealogy                           Genealogy
+Arts & Humanities                   History                             History
+Arts & Humanities                   Other - Arts & Humanities           Other - Arts & Humanities
+Arts & Humanities                   Performing Arts                     Performing Arts
+Arts & Humanities                   Philosophy                          Philosophy
+Arts & Humanities                   Visual Arts                         Drawing & Illustration
+Arts & Humanities                   Visual Arts                         Other - Visual Arts
+Arts & Humanities                   Visual Arts                         Painting
+Arts & Humanities                   Visual Arts                         Photography
+Arts & Humanities                   Visual Arts                         Sculpture
+Asia Pacific                        Vietnam                             Other - Vietnam
+Beauty & Style                      Fashion & Accessories               Fashion & Accessories
+Beauty & Style                      Hair                                Hair
+Beauty & Style                      Makeup                              Makeup
+Beauty & Style                      Other - Beauty & Style              Other - Beauty & Style
+Beauty & Style                      Skin & Body                         Tattoos
+Business & Finance                  Advertising & Marketing             Search Engine Optimization
+Business & Finance                  Careers & Employment                Financial Services
+Business & Finance                  Corporations                        Corporations
+Business & Finance                  Credit                              Credit
+Business & Finance                  Insurance                           Insurance
+Business & Finance                  Investing                           Investing
+Business & Finance                  Other - Business & Finance          Other - Business & Finance
+Business & Finance                  Personal Finance                    Personal Finance
+Business & Finance                  Renting & Real Estate               Renting & Real Estate
+Business & Finance                  Small Business                      Small Business
+Business & Finance                  Taxes                               United States
+Cars & Transportation               Aircraft                            Aircraft
+Cars & Transportation               Buying & Selling                    Buying & Selling
+Cars & Transportation               Car Makes                           Acura
+Cars & Transportation               Car Makes                           Audi
+Cars & Transportation               Car Makes                           BMW
+Cars & Transportation               Car Makes                           Chevrolet
+Cars & Transportation               Car Makes                           Chrysler
+Cars & Transportation               Car Makes                           Dodge
+Cars & Transportation               Car Makes                           Ford
+Cars & Transportation               Car Makes                           GMC
+Cars & Transportation               Car Makes                           Honda
+Cars & Transportation               Car Makes                           Jeep
+Cars & Transportation               Car Makes                           Lexus
+Cars & Transportation               Car Makes                           Lincoln
+Cars & Transportation               Car Makes                           Mazda
+Cars & Transportation               Car Makes                           Mercedes-Benz
+Cars & Transportation               Car Makes                           Mitsubishi
+Cars & Transportation               Car Makes                           Nissan
+Cars & Transportation               Car Makes                           Other - Car Makes
+Cars & Transportation               Car Makes                           Scion
+Cars & Transportation               Car Makes                           Subaru
+Cars & Transportation               Car Makes                           Toyota
+Cars & Transportation               Car Makes                           Volkswagen
+Cars & Transportation               Car Makes                           Volvo
+Cars & Transportation               Commuting                           Commuting
+Cars & Transportation               Insurance & Registration            Insurance & Registration
+Cars & Transportation               Maintenance & Repairs               Maintenance & Repairs
+Cars & Transportation               Motorcycles                         Motorcycles
+Cars & Transportation               Other - Cars & Transportation       Other - Cars & Transportation
+Cars & Transportation               Safety                              Safety
+Computers & Internet                Computer Networking                 Computer Networking
+Computers & Internet                Hardware                            Add-ons
+Computers & Internet                Hardware                            Desktops
+Computers & Internet                Hardware                            Laptops & Notebooks
+Computers & Internet                Hardware                            Monitors
+Computers & Internet                Hardware                            Other - Hardware
+Computers & Internet                Hardware                            Printers
+Computers & Internet                Hardware                            Scanners
+Computers & Internet                Internet                            Other - Internet
+Computers & Internet                Other - Computers                   Other - Computers
+Computers & Internet                Programming & Design                Programming & Design
+Computers & Internet                Security                            Security
+Computers & Internet                Software                            Software
+Consumer Electronics                Camcorders                          Camcorders
+Consumer Electronics                Cameras                             Cameras
+Consumer Electronics                Cell Phones & Plans                 Cell Phones & Plans
+Consumer Electronics                Games & Gear                        Xbox
+Consumer Electronics                Home Theater                        Home Theater
+Consumer Electronics                Land Phones                         Land Phones
+Consumer Electronics                Music & Music Players               Music & Music Players
+Consumer Electronics                Other - Electronics                 Other - Electronics
+Consumer Electronics                PDAs & Handhelds                    PDAs & Handhelds
+Consumer Electronics                TVs                                 TVs
+Consumer Electronics                TiVO & DVRs                         TiVO & DVRs
+Dining Out                          Other - Dining Out                  Other - Dining Out
+Dining Out                          United States                       Atlanta
+Dining Out                          United States                       Austin
+Dining Out                          United States                       Boston
+Dining Out                          United States                       Chicago
+Dining Out                          United States                       Cincinnati
+Dining Out                          United States                       Cleveland
+Dining Out                          United States                       Dallas
+Dining Out                          United States                       Denver
+Dining Out                          United States                       Detroit
+Dining Out                          United States                       Honolulu
+Dining Out                          United States                       Houston
+Dining Out                          United States                       Indianapolis
+Dining Out                          United States                       Kansas City
+Dining Out                          United States                       Las Vegas
+Dining Out                          United States                       Los Angeles
+Dining Out                          United States                       Miami
+Dining Out                          United States                       New Orleans
+Dining Out                          United States                       New York City
+Dining Out                          United States                       Orlando
+Dining Out                          United States                       Philadelphia
+Dining Out                          United States                       Phoenix
+Dining Out                          United States                       Portland
+Dining Out                          United States                       Sacramento
+Dining Out                          United States                       San Antonio
+Dining Out                          United States                       San Diego
+Dining Out                          United States                       San Francisco
+Dining Out                          United States                       San Jose
+Dining Out                          United States                       Seattle
+Dining Out                          United States                       St. Louis
+Dining Out                          United States                       Washington, D.C.
+Education & Reference               Financial Aid                       Financial Aid
+Education & Reference               Higher Education (University +)     Higher Education (University +)
+Education & Reference               Homework Help                       Homework Help
+Education & Reference               Other - Education                   Other - Education
+Education & Reference               Primary & Secondary Education       Primary & Secondary Education
+Education & Reference               Quotations                          Quotations
+Education & Reference               Special Education                   Special Education
+Education & Reference               Standards & Testing                 Standards & Testing
+Education & Reference               Teaching                            Teaching
+Education & Reference               Trivia                              Trivia
+Education & Reference               Words & Wordplay                    Words & Wordplay
+Entertainment & Music               Celebrities                         Celebrities
+Entertainment & Music               Comics & Animation                  Comics & Animation
+Entertainment & Music               Horoscopes                          Horoscopes
+Entertainment & Music               Jokes & Riddles                     Jokes & Riddles
+Entertainment & Music               Magazines                           Magazines
+Entertainment & Music               Movies                              Movies
+Entertainment & Music               Music                               Blues
+Entertainment & Music               Other - Entertainment               Other - Entertainment
+Entertainment & Music               Television                          Reality Television
+Environment                         Alternative Fuel Vehicles           Alternative Fuel Vehicles
+Family & Relationships              Friends                             Friends
+Family & Relationships              Marriage & Divorce                  Marriage & Divorce
+Family & Relationships              Other - Family & Relationships      Other - Family & Relationships
+Family & Relationships              Singles & Dating                    Singles & Dating
+Family & Relationships              Weddings                            Weddings
+Food & Drink                        Beer, Wine & Spirits                Beer, Wine & Spirits
+Food & Drink                        Cooking & Recipes                   Cooking & Recipes
+Food & Drink                        Entertaining                        Entertaining
+Food & Drink                        Ethnic Cuisine                      Ethnic Cuisine
+Food & Drink                        Non-Alcoholic Drinks                Non-Alcoholic Drinks
+Food & Drink                        Other - Food & Drink                Other - Food & Drink
+Games & Recreation                  Amusement Parks                     Amusement Parks
+Games & Recreation                  Board Games                         Board Games
+Games & Recreation                  Card Games                          Card Games
+Games & Recreation                  Gambling                            Gambling
+Games & Recreation                  Hobbies & Crafts                    Hobbies & Crafts
+Games & Recreation                  Other - Games & Recreation          Other - Games & Recreation
+Games & Recreation                  Toys                                Toys
+Games & Recreation                  Video & Online Games                Video & Online Games
+Health                              Alternative Medicine                Alternative Medicine
+Health                              Dental                              Dental
+Health                              Diet & Fitness                      Diet & Fitness
+Health                              Diseases & Conditions               Allergies
+Health                              Diseases & Conditions               Cancer
+Health                              Diseases & Conditions               Diabetes
+Health                              Diseases & Conditions               Heart Diseases
+Health                              Diseases & Conditions               Infectious Diseases
+Health                              Diseases & Conditions               Other - Diseases
+Health                              Diseases & Conditions               Respiratory Diseases
+Health                              Diseases & Conditions               STDs
+Health                              Diseases & Conditions               Skin Conditions
+Health                              General Health Care                 First Aid
+Health                              Men's Health                        Men's Health
+Health                              Mental Health                       Mental Health
+Health                              Other - Health                      Other - Health
+Health                              Women's Health                      Women's Health
+Home & Garden                       Cleaning & Laundry                  Cleaning & Laundry
+Home & Garden                       Decorating & Remodeling             Decorating & Remodeling
+Home & Garden                       Garden & Landscape                  Garden & Landscape
+Home & Garden                       Maintenance & Repairs               Maintenance & Repairs
+Home & Garden                       Other - Home & Garden               Other - Home & Garden
+Local Businesses                    Other - Local Businesses            Other - Local Businesses
+Local Businesses                    United States                       Atlanta
+Local Businesses                    United States                       Austin
+Local Businesses                    United States                       Boston
+Local Businesses                    United States                       Chicago
+Local Businesses                    United States                       Los Angeles
+Local Businesses                    United States                       San Francisco
+Local Businesses                    United States                       San Jose
+News & Events                       Current Events                      Current Events
+News & Events                       Media & Journalism                  Media & Journalism
+News & Events                       Other - News & Events               Other - News & Events
+Pets                                Birds                               Birds
+Pets                                Cats                                Cats
+Pets                                Dogs                                Dogs
+Pets                                Fish                                Fish
+Pets                                Other - Pets                        Other - Pets
+Pets                                Reptiles                            Reptiles
+Politics & Government               Civic Participation                 Civic Participation
+Politics & Government               Embassies & Consulates              Embassies & Consulates
+Politics & Government               Government                          Government
+Politics & Government               Immigration                         Immigration
+Politics & Government               Law & Ethics                        Law & Ethics
+Politics & Government               Military                            Military
+Politics & Government               Other - Politics & Government       Other - Politics & Government
+Politics & Government               Politics                            Politics
+Pregnancy & Parenting               Adolescent                          Adolescent
+Pregnancy & Parenting               Grade-Schooler                      Grade-Schooler
+Pregnancy & Parenting               Newborn & Baby                      Newborn & Baby
+Pregnancy & Parenting               Other - Pregnancy & Parenting       Other - Pregnancy & Parenting
+Pregnancy & Parenting               Parenting                           Parenting
+Pregnancy & Parenting               Pregnancy                           Pregnancy
+Pregnancy & Parenting               Toddler & Preschooler               Toddler & Preschooler
+Pregnancy & Parenting               Trying to Conceive                  Trying to Conceive
+Science & Mathematics               Astronomy & Space                   Astronomy & Space
+Science & Mathematics               Biology                             Biology
+Science & Mathematics               Botany                              Botany
+Science & Mathematics               Chemistry                           Chemistry
+Science & Mathematics               Earth Sciences & Geology            Earth Sciences & Geology
+Science & Mathematics               Engineering                         Engineering
+Science & Mathematics               Geography                           Geography
+Science & Mathematics               Mathematics                         Mathematics
+Science & Mathematics               Medicine                            Medicine
+Science & Mathematics               Other - Science                     Other - Science
+Science & Mathematics               Physics                             Physics
+Science & Mathematics               Weather                             Weather
+Science & Mathematics               Zoology                             Zoology
+Social Science                      Anthropology                        Anthropology
+Social Science                      Economics                           Economics
+Social Science                      Gender & Women's Studies            Gender & Women's Studies
+Social Science                      Other - Social Science              Other - Social Science
+Social Science                      Psychology                          Psychology
+Social Science                      Sociology                           Sociology
+Society & Culture                   Community Service                   Community Service
+Society & Culture                   Cultures & Groups                   Lesbian, Gay, Bisexual, and Transgendered
+Society & Culture                   Etiquette                           Etiquette
+Society & Culture                   Holidays                            St. Patrick's Day
+Society & Culture                   Holidays                            Valentine's Day
+Society & Culture                   Languages                           Languages
+Society & Culture                   Mythology & Folklore                Mythology & Folklore
+Society & Culture                   Other - Society & Culture           Other - Society & Culture
+Society & Culture                   Religion & Spirituality             Religion & Spirituality
+Sports                              Auto Racing                         Formula One
+Sports                              Baseball                            Baseball
+Sports                              Basketball                          Basketball
+Sports                              Cricket                             Cricket
+Sports                              Cycling                             Cycling
+Sports                              Fantasy Sports                      Fantasy Sports
+Sports                              Football (American)                 Football (American)
+Sports                              Football (Soccer)                   2006 FIFA World Cup(TM)
+Sports                              Golf                                Golf
+Sports                              Hockey                              Hockey
+Sports                              Other - Sports                      Other - Sports
+Sports                              Outdoor Recreation                  Hunting
+Sports                              Rugby                               Rugby
+Sports                              Swimming & Diving                   Swimming & Diving
+Sports                              Tennis                              Tennis
+Sports                              Volleyball                          Volleyball
+Sports                              Water Sports                        Water Sports
+Sports                              Winter Sports                       Curling
+Travel                              Africa & Middle East                Bahrain
+Travel                              Africa & Middle East                Egypt
+Travel                              Africa & Middle East                Israel
+Travel                              Africa & Middle East                Kenya
+Travel                              Africa & Middle East                Lebanon
+Travel                              Africa & Middle East                Madagascar
+Travel                              Africa & Middle East                Mauritius
+Travel                              Africa & Middle East                Morocco
+Travel                              Africa & Middle East                Other - Africa & Middle East
+Travel                              Africa & Middle East                Saudi Arabia
+Travel                              Africa & Middle East                Seychelles
+Travel                              Africa & Middle East                South Africa
+Travel                              Africa & Middle East                Tunisia
+Travel                              Africa & Middle East                United Arab Emirates
+Travel                              Argentina                           Buenos Aires
+Travel                              Asia Pacific                        China
+Travel                              Asia Pacific                        Japan
+Travel                              Asia Pacific                        Korea
+Travel                              Asia Pacific                        Malaysia
+Travel                              Asia Pacific                        Maldives
+Travel                              Asia Pacific                        Nepal
+Travel                              Asia Pacific                        Other - Asia Pacific
+Travel                              Asia Pacific                        Philippines
+Travel                              Asia Pacific                        Singapore
+Travel                              Asia Pacific                        Taiwan
+Travel                              Asia Pacific                        Thailand
+Travel                              Australia                           General - Australia
+Travel                              Australia                           New South Wales (Sydney)
+Travel                              Australia                           Queensland (Brisbane)
+Travel                              Australia                           South Australia (Adelaide)
+Travel                              Australia                           Tasmania (Hobart)
+Travel                              Australia                           Victoria (Melbourne)
+Travel                              Australia                           Western Australia (Perth)
+Travel                              Austria                             Vienna
+Travel                              Brazil                              Belo Horizonte
+Travel                              Canada                              Calgary
+Travel                              Canada                              Montreal
+Travel                              Canada                              Niagara Falls
+Travel                              Canada                              Other - Canada
+Travel                              Canada                              Ottawa
+Travel                              Canada                              Quebec
+Travel                              Canada                              Toronto
+Travel                              Canada                              Vancouver
+Travel                              Caribbean                           Aruba
+Travel                              Caribbean                           Bahamas
+Travel                              Caribbean                           Barbados
+Travel                              Caribbean                           Bermuda
+Travel                              Caribbean                           Cuba
+Travel                              Caribbean                           Dominican Republic
+Travel                              Caribbean                           Jamaica
+Travel                              Caribbean                           Other - Caribbean
+Travel                              Caribbean                           Puerto Rico
+Travel                              Caribbean                           St. Barts
+Travel                              Caribbean                           Turks & Caicos
+Travel                              Caribbean                           Virgin Islands
+Travel                              Europe (Continental)                Belgium
+Travel                              Europe (Continental)                Denmark
+Travel                              Europe (Continental)                Greece
+Travel                              Europe (Continental)                Netherlands
+Travel                              Europe (Continental)                Other - Europe
+Travel                              Europe (Continental)                Poland
+Travel                              Europe (Continental)                Portugal
+Travel                              Europe (Continental)                Russia
+Travel                              France                              Alsace
+Travel                              Germany                             Baden-Wuerttemburg
+Travel                              India                               Ahmedabad
+Travel                              Ireland                             Cork
+Travel                              Italy                               Ancona
+Travel                              Latin America                       Chile
+Travel                              Latin America                       Costa Rica
+Travel                              Latin America                       Ecuador
+Travel                              Latin America                       El Salvador
+Travel                              Latin America                       Guatemala
+Travel                              Latin America                       Other - Latin America
+Travel                              Latin America                       Panama
+Travel                              Latin America                       Peru
+Travel                              Latin America                       Uruguay
+Travel                              Latin America                       Venezuela
+Travel                              Mexico                              Acapulco
+Travel                              Mexico                              Cabo San Lucas
+Travel                              Mexico                              Cancun
+Travel                              Mexico                              Cozumel
+Travel                              Mexico                              Guadalajara
+Travel                              Mexico                              Mazanillo
+Travel                              Mexico                              Mazatlan
+Travel                              Mexico                              Mexico City
+Travel                              Mexico                              Other - Mexico
+Travel                              Mexico                              Puerto Vallarta
+Travel                              New Zealand                         Auckland
+Travel                              New Zealand                         Christchurch
+Travel                              New Zealand                         Queenstown
+Travel                              New Zealand                         Wellington
+Travel                              Other - Destinations                Other - Destinations
+Travel                              Spain                               Andalucia
+Travel                              Switzerland                         Bern
+Travel                              Travel (General)                    Health & Safety
+Travel                              Travel (General)                    Other - Destinations
+Travel                              Travel (General)                    Packing & Preparation
+Travel                              United Kingdom                      Aberdeen
+Travel                              United States                       Atlanta
+Travel                              United States                       Austin
+Travel                              United States                       Boston
+Travel                              United States                       Chicago
+Travel                              United States                       Cincinnati
+Travel                              United States                       Cleveland
+Travel                              United States                       Dallas
+Travel                              United States                       Denver
+Travel                              United States                       Detroit
+Travel                              United States                       Honolulu
+Travel                              United States                       Houston
+Travel                              United States                       Indianapolis
+Travel                              United States                       Kansas City
+Travel                              United States                       Las Vegas
+Travel                              United States                       Los Angeles
+Travel                              United States                       Miami
+Travel                              United States                       New Orleans
+Travel                              United States                       New York City
+Travel                              United States                       Orlando
+Travel                              United States                       Other - United States
+Travel                              United States                       Philadelphia
+Travel                              United States                       Phoenix
+Travel                              United States                       Portland
+Travel                              United States                       Sacramento
+Travel                              United States                       San Antonio
+Travel                              United States                       San Diego
+Travel                              United States                       San Francisco
+Travel                              United States                       San Jose
+Travel                              United States                       Seattle
+Travel                              United States                       St. Louis
+Travel                              United States                       Washington, D.C.
+Yahoo! Products                     Other - Yahoo! Products             Other - Yahoo! Products
+Yahoo! Products                     Yahoo! 360                          Yahoo! 360
+Yahoo! Products                     Yahoo! Answers                      Yahoo! Answers
+Yahoo! Products                     Yahoo! Mail                         Accounts & Passwords
+Yahoo! Products                     Yahoo! Mail                         Address Book & Calendar
+Yahoo! Products                     Yahoo! Mail                         Attachments & Photos
+Yahoo! Products                     Yahoo! Mail                         External Mail (POP)
+Yahoo! Products                     Yahoo! Mail                         Other - Yahoo! Mail
+Yahoo! Products                     Yahoo! Mail                         Personalization
+Yahoo! Products                     Yahoo! Mail                         Problems with Service
+Yahoo! Products                     Yahoo! Mail                         Spam & Bulk Mail
+Yahoo! Products                     Yahoo! Messenger                    Accounts & Passwords

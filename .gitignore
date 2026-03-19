@@ -1,0 +1,13 @@
+# Dataset original (12 GB, no subir a GitHub)
+data/FullOct2007.xml
+
+# Archivos generados (opcionales, se pueden regenerar con los scripts)
+# Descomenta las siguientes líneas si NO quieres subir los datos extraídos:
+# data/categorias.txt
+# data/preguntas_*.xml
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.env
