@@ -1,6 +1,6 @@
 <?xml-stylesheet type="text/xsl" href="resultado.xsl"?>
 <exist:result xmlns:exist="http://exist.sourceforge.net/NS/exist" exist:hits="1" exist:start="1" exist:count="1" exist:compilation-time="0" exist:execution-time="0">
-    <estadisticas fecha="2026-03-22T14:35:43.061+01:00"><!-- ══ ESPAÑOL ══ -->
+    <estadisticas fecha="2026-03-22T20:09:56.051+01:00"><!-- ══ ESPAÑOL ══ -->
         <idioma codigo="es" nombre="Español">
             <categoria nombre="Política y Gobierno">
                 <total_preguntas>12976</total_preguntas>

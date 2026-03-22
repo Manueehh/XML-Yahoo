@@ -1,6 +1,6 @@
 <?xml-stylesheet type="text/xsl" href="resultado.xsl"?>
-<exist:result xmlns:exist="http://exist.sourceforge.net/NS/exist" exist:hits="1" exist:start="1" exist:count="1" exist:compilation-time="14" exist:execution-time="14">
-    <analisis_redes_sociales fecha="2026-03-22T14:36:29.431+01:00"><!-- ══ 1. SIMETRÍA GLOBAL ══ -->
+<exist:result xmlns:exist="http://exist.sourceforge.net/NS/exist" exist:hits="1" exist:start="1" exist:count="1" exist:compilation-time="0" exist:execution-time="0">
+    <analisis_redes_sociales fecha="2026-03-22T20:10:09.16+01:00"><!-- ══ 1. SIMETRÍA GLOBAL ══ -->
         <simetria>
             <descripcion>Baja simetría: pocos usuarios hacen ambas cosas (Shen 2015)</descripcion>
             <total_usuarios_distintos>12881</total_usuarios_distintos>

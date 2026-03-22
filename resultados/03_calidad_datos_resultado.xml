@@ -1,6 +1,6 @@
 <?xml-stylesheet type="text/xsl" href="resultado.xsl"?>
 <exist:result xmlns:exist="http://exist.sourceforge.net/NS/exist" exist:hits="1" exist:start="1" exist:count="1" exist:compilation-time="0" exist:execution-time="0">
-    <calidad_datos fecha="2026-03-22T14:36:47.248+01:00"><!-- ══ 1. COMPLETITUD DE CAMPOS ══ -->
+    <calidad_datos fecha="2026-03-22T20:10:15.446+01:00"><!-- ══ 1. COMPLETITUD DE CAMPOS ══ -->
         <completitud>
             <campo nombre="content" total="16952" presentes="11643" ausentes="5309" porcentaje_ausentes="31.3%"/>
             <campo nombre="vot_date" total="16952" presentes="7942" ausentes="9010" porcentaje_ausentes="53.2%"/>

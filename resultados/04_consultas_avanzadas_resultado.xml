@@ -1,0 +1,27 @@
+<?xml-stylesheet type="text/xsl" href="resultado.xsl"?>
+<exist:result xmlns:exist="http://exist.sourceforge.net/NS/exist" exist:hits="1" exist:start="1" exist:count="1" exist:compilation-time="0" exist:execution-time="0">
+    <consultas_avanzadas fecha="2026-03-22T20:11:02.498+01:00">
+        <comparativa_es_it>
+            <item metrica="Media respuestas/pregunta" ES="9.08" IT="11.32"/>
+            <item metrica="Media longitud bestanswer" ES="437.3" IT="443.8"/>
+            <item metrica="Porcentaje sin content" ES="32.2%" IT="27.8%"/>
+            <item metrica="Usuarios unicos preguntando" ES="6473" IT="1687"/>
+            <item metrica="Usuarios unicos respondiendo" ES="5170" IT="1548"/>
+            <item metrica="Porcentaje resueltas el mismo dia" ES="16.0%" IT="19.9%"/>
+        </comparativa_es_it>
+        <temas_politica>
+            <termino texto="inmigracion" menciones="26"/>
+            <termino texto="inmigrante" menciones="52"/>
+            <termino texto="immigrazione" menciones="4"/>
+            <termino texto="immigrante" menciones="2"/>
+            <termino texto="ley" menciones="273"/>
+            <termino texto="legge" menciones="48"/>
+            <termino texto="presidente" menciones="732"/>
+            <termino texto="governo" menciones="112"/>
+            <termino texto="gobierno" menciones="429"/>
+        </temas_politica>
+        <sin_respuestas>
+            <resultado total="0"/>
+        </sin_respuestas>
+    </consultas_avanzadas>
+</exist:result>
