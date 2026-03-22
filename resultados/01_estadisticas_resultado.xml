@@ -1,0 +1,90 @@
+<?xml-stylesheet type="text/xsl" href="resultado.xsl"?>
+<exist:result xmlns:exist="http://exist.sourceforge.net/NS/exist" exist:hits="1" exist:start="1" exist:count="1" exist:compilation-time="0" exist:execution-time="0">
+    <estadisticas fecha="2026-03-22T14:35:43.061+01:00"><!-- ══ ESPAÑOL ══ -->
+        <idioma codigo="es" nombre="Español">
+            <categoria nombre="Política y Gobierno">
+                <total_preguntas>12976</total_preguntas>
+                <total_respuestas>119262</total_respuestas>
+                <media_respuestas>9.19</media_respuestas>
+                <sin_content>4172</sin_content>
+                <con_vot_date>6349</con_vot_date>
+                <subcategorias>
+                    <subcat nombre="Política" total="3891"/>
+                    <subcat nombre="Otros - Política y Gobierno" total="2467"/>
+                    <subcat nombre="Gobierno" total="1779"/>
+                    <subcat nombre="Leyes y Ética" total="1176"/>
+                    <subcat nombre="Participación Ciudadana" total="1036"/>
+                    <subcat nombre="Elecciones" total="741"/>
+                    <subcat nombre="Inmigración" total="691"/>
+                    <subcat nombre="Fuerzas Armadas" total="360"/>
+                    <subcat nombre="Participación Cívica" total="223"/>
+                    <subcat nombre="Embajadas y Consulados" total="217"/>
+                    <subcat nombre="Policía" total="183"/>
+                    <subcat nombre="Participación ciudadana" total="157"/>
+                    <subcat nombre="Fuerzas Policiales" total="55"/>
+                </subcategorias>
+            </categoria>
+            <categoria nombre="Noticias y Actualidad">
+                <total_preguntas>674</total_preguntas>
+                <total_respuestas>4740</total_respuestas>
+                <media_respuestas>7.03</media_respuestas>
+                <sin_content>219</sin_content>
+                <con_vot_date>280</con_vot_date>
+                <subcategorias>
+                    <subcat nombre="Actualidad" total="297"/>
+                    <subcat nombre="Otros - Noticias y Actualidad" total="266"/>
+                    <subcat nombre="Periodismo y Medios de Comunicación" total="111"/>
+                </subcategorias>
+            </categoria>
+            <totales>
+                <preguntas>13650</preguntas>
+                <respuestas>124002</respuestas>
+                <usuarios_unicos_preguntando>6473</usuarios_unicos_preguntando>
+                <usuarios_unicos_respondiendo>5170</usuarios_unicos_respondiendo>
+            </totales>
+        </idioma><!-- ══ ITALIANO ══ -->
+        <idioma codigo="it" nombre="Italiano">
+            <categoria nombre="Politica e governo">
+                <total_preguntas>2118</total_preguntas>
+                <total_respuestas>25456</total_respuestas>
+                <media_respuestas>12.02</media_respuestas>
+                <sin_content>513</sin_content>
+                <con_vot_date>804</con_vot_date>
+                <subcategorias>
+                    <subcat nombre="Politica e governo - Altro" total="828"/>
+                    <subcat nombre="Politici" total="336"/>
+                    <subcat nombre="Governo" total="329"/>
+                    <subcat nombre="Legge ed etica" total="255"/>
+                    <subcat nombre="Partecipazione civica" total="131"/>
+                    <subcat nombre="Immigrazione" total="77"/>
+                    <subcat nombre="Forze dell'ordine" total="52"/>
+                    <subcat nombre="Esercito" total="50"/>
+                    <subcat nombre="Elezioni" total="38"/>
+                    <subcat nombre="Ambasciate e consolati" total="22"/>
+                </subcategorias>
+            </categoria>
+            <categoria nombre="Notizie ed eventi">
+                <total_preguntas>1184</total_preguntas>
+                <total_respuestas>11907</total_respuestas>
+                <media_respuestas>10.06</media_respuestas>
+                <sin_content>405</sin_content>
+                <con_vot_date>509</con_vot_date>
+                <subcategorias>
+                    <subcat nombre="Notizie ed eventi - Altro" total="557"/>
+                    <subcat nombre="Attualità" total="463"/>
+                    <subcat nombre="Giornalismo e media" total="164"/>
+                </subcategorias>
+            </categoria>
+            <totales>
+                <preguntas>3302</preguntas>
+                <respuestas>37363</respuestas>
+                <usuarios_unicos_preguntando>1687</usuarios_unicos_preguntando>
+                <usuarios_unicos_respondiendo>1548</usuarios_unicos_respondiendo>
+            </totales>
+        </idioma><!-- ══ GLOBAL ══ -->
+        <global>
+            <total_preguntas>16952</total_preguntas>
+            <total_respuestas>161365</total_respuestas>
+        </global>
+    </estadisticas>
+</exist:result>

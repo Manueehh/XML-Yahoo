@@ -39,71 +39,59 @@ class CategoryHandler(xml.sax.handler.ContentHandler):
             self.current_tag = None
 
         elif name == "document":
-            combo = (self.maincat, self.subcat, self.cat)
-            if combo not in self.categories:
-                self.categories.add(combo)
+            self.categories.add((self.maincat, self.subcat, self.cat))
             self.count += 1
             if self.count % 100_000 == 0:
-                print(f"  Procesados: {self.count:,} documentos | "
-                      f"Categorías únicas hasta ahora: {len(self.categories)}")
+                print("Procesados", self.count, "documentos")
             self.maincat = self.subcat = self.cat = ""
 
 
-def main():
-    if not XML_FILE.exists():
-        print(f"No se encontró el fichero: {XML_FILE}")
-        return
+if not XML_FILE.exists():
+    print("No se encontro el fichero", XML_FILE)
+    exit(1)
 
-    print(f"Procesando {XML_FILE.name} ({XML_FILE.stat().st_size / 1e9:.1f} GB)...")
-    print("Esto puede tardar varios minutos...\n")
+print("Procesando", XML_FILE.name)
 
-    handler = CategoryHandler()
+handler = CategoryHandler()
+parser = xml.sax.make_parser()
+parser.setContentHandler(handler)
+parser.setFeature(xml.sax.handler.feature_validation, False)
+parser.setFeature(xml.sax.handler.feature_namespaces, False)
 
-    parser = xml.sax.make_parser()
-    parser.setContentHandler(handler)
-    parser.setFeature(xml.sax.handler.feature_validation, False)
-    parser.setFeature(xml.sax.handler.feature_namespaces, False)
+class WrappedFile:
+    def __init__(self, fh):
+        self._fh = fh
+        self._state = "header"
 
-    try:
-        with open(XML_FILE, "rb") as f:
-            class WrappedFile:
-                def __init__(self, fh):
-                    self._fh = fh
-                    self._header = b"<root>"
-                    self._footer = b"</root>"
-                    self._state = "header"
+    def read(self, size=65536):
+        if self._state == "header":
+            self._state = "body"
+            return b"<root>"
+        elif self._state == "body":
+            data = self._fh.read(size)
+            if not data:
+                self._state = "footer"
+                return b"</root>"
+            return data
+        return b""
 
-                def read(self, size=-1):
-                    if self._state == "header":
-                        self._state = "body"
-                        return self._header
-                    elif self._state == "body":
-                        data = self._fh.read(size if size > 0 else 65536)
-                        if not data:
-                            self._state = "footer"
-                            return self._footer
-                        return data
-                    else:
-                        return b""
+try:
+    with open(XML_FILE, "rb") as f:
+        parser.parse(WrappedFile(f))
+except Exception as e:
+    print("El parser termino con un error:", e)
 
-            parser.parse(WrappedFile(f))
-    except Exception as e:
-        print(f"\nEl parser encontró un error: {e}")
-        print("Usando los datos recopilados hasta ese punto...\n")
+sorted_cats = sorted(handler.categories)
 
-    sorted_cats = sorted(handler.categories)
+with open(OUTPUT_FILE, "w", encoding="utf-8") as out:
+    out.write(f"TOTAL documentos procesados: {handler.count:,}\n")
+    out.write(f"Combinaciones unicas de categoria: {len(sorted_cats)}\n")
+    out.write(f"{'='*70}\n\n")
+    out.write(f"{'MAINCAT':<35} {'SUBCAT':<35} {'CAT'}\n")
+    out.write(f"{'-'*70}\n")
+    for maincat, subcat, cat in sorted_cats:
+        out.write(f"{maincat:<35} {subcat:<35} {cat}\n")
 
-    with open(OUTPUT_FILE, "w", encoding="utf-8") as out:
-        out.write(f"TOTAL documentos procesados: {handler.count:,}\n")
-        out.write(f"Combinaciones únicas de categoría: {len(sorted_cats)}\n")
-        out.write(f"{'MAINCAT':<35} {'SUBCAT':<35} {'CAT'}\n")
-        for maincat, subcat, cat in sorted_cats:
-            out.write(f"{maincat:<35} {subcat:<35} {cat}\n")
-
-    print(f"\n{handler.count:,} documentos procesados.")
-    print(f"{len(sorted_cats)} combinaciones de categoría únicas encontradas.")
-    print(f"Resultado guardado en: {OUTPUT_FILE}")
-
-
-if __name__ == "__main__":
-    main()
+print("Total documentos:", handler.count)
+print("Categorias unicas:", len(sorted_cats))
+print("Resultado guardado en", OUTPUT_FILE)

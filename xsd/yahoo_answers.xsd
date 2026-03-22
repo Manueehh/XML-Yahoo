@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+  <xs:element name="preguntas">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="document" type="DocumentType" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute name="categoria" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="DocumentType">
+    <xs:all>
+      <xs:element name="uri"           type="xs:positiveInteger"/>
+      <xs:element name="subject"       type="xs:string"/>
+      <xs:element name="content"       type="xs:string"  minOccurs="0"/>
+      <xs:element name="bestanswer"    type="xs:string"/>
+      <xs:element name="nbestanswers"  type="ListaRespuestas"/>
+      <xs:element name="cat"           type="xs:string"/>
+      <xs:element name="maincat"       type="xs:string"/>
+      <xs:element name="subcat"        type="xs:string"/>
+      <xs:element name="date"          type="xs:long"/>
+      <xs:element name="res_date"      type="xs:long"/>
+      <xs:element name="vot_date"      type="xs:long"    minOccurs="0"/>
+      <xs:element name="lastanswerts"  type="xs:long"/>
+      <xs:element name="qlang"         type="CodigoIdioma"/>
+      <xs:element name="qintl"         type="xs:string"/>
+      <xs:element name="language"      type="xs:string"/>
+      <xs:element name="id"            type="UserId"/>
+      <xs:element name="best_id"       type="UserId"/>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="ListaRespuestas">
+    <xs:sequence>
+      <xs:element name="answer_item" type="xs:string" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="CodigoIdioma">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[a-z]{2}"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="UserId">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="u[0-9]+"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

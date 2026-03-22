@@ -4,30 +4,24 @@ import re
 from pathlib import Path
 
 TARGETS = {
-    "Política y Gobierno",    # español
-    "Noticias y Actualidad",  # español
-    "Politica e governo",     # italiano
-    "Notizie ed eventi",      # italiano
+    "Política y Gobierno",
+    "Noticias y Actualidad",
+    "Politica e governo",
+    "Notizie ed eventi",
 }
 
 DATA_DIR = Path(__file__).parent.parent / "data"
 XML_FILE = DATA_DIR / "FullOct2007.xml"
 
 
-def slug(name: str) -> str:
-    s = name.lower()
-    s = s.replace(" ", "_")
+def slug(name):
+    s = name.lower().replace(" ", "_")
     s = re.sub(r"[^\w]", "", s, flags=re.UNICODE)
     return s
 
 
-def output_path(categoria: str) -> Path:
-    return DATA_DIR / f"preguntas_{slug(categoria)}.xml"
-
-
 class DocExtractor(xml.sax.handler.ContentHandler):
-
-    def __init__(self, out_map: dict):
+    def __init__(self, out_map):
         self.out_map   = out_map
         self.in_doc    = False
         self.buf       = []
@@ -38,7 +32,7 @@ class DocExtractor(xml.sax.handler.ContentHandler):
         self.counts    = {t: 0 for t in out_map}
 
     @staticmethod
-    def _esc(s: str) -> str:
+    def _esc(s):
         return (s.replace("&", "&amp;")
                   .replace("<", "&lt;")
                   .replace(">", "&gt;")
@@ -73,34 +67,25 @@ class DocExtractor(xml.sax.handler.ContentHandler):
         if name == "document":
             self.buf.append("</document>\n")
             self.total += 1
-
             if self.maincat in self.out_map:
                 self.out_map[self.maincat].write("".join(self.buf))
                 self.counts[self.maincat] += 1
-
             self.in_doc    = False
             self.buf       = []
             self.maincat   = ""
             self.cur_tag   = None
             self.cur_chars = []
-
             if self.total % 100_000 == 0:
-                resumen = " | ".join(
-                    f"{cat}: {self.counts[cat]:,}"
-                    for cat in self.out_map
-                )
-                print(f"  Procesados: {self.total:,} | {resumen}")
+                print("Procesados", self.total, "documentos")
             return
 
         self.buf.append(f"</{name}>\n")
-
         if name == "maincat" and self.cur_tag == "maincat":
             self.maincat   = "".join(self.cur_chars).strip()
             self.cur_tag   = None
             self.cur_chars = []
 
 
-# ───────────────────────────────────────────────
 class WrappedFile:
     def __init__(self, fh):
         self._fh    = fh
@@ -119,47 +104,35 @@ class WrappedFile:
         return b""
 
 
-def main():
-    if not XML_FILE.exists():
-        print(f"ERROR: No encontrado {XML_FILE}")
-        return
+if not XML_FILE.exists():
+    print("No se encontro el fichero", XML_FILE)
+    exit(1)
 
-    print(f"Procesando {XML_FILE.name} ({XML_FILE.stat().st_size / 1e9:.1f} GB)")
-    print(f"Categorías buscadas: {', '.join(sorted(TARGETS))}\n")
+print("Procesando", XML_FILE.name)
+print("Categorias buscadas:", ", ".join(sorted(TARGETS)))
 
-    handles = {cat: open(output_path(cat), "w", encoding="utf-8") for cat in TARGETS}
-    try:
-        for cat, fh in handles.items():
-            fh.write(f'<?xml version="1.0" encoding="UTF-8"?>\n'
-                     f'<preguntas categoria="{cat}">\n')
+handles = {cat: open(DATA_DIR / f"preguntas_{slug(cat)}.xml", "w", encoding="utf-8") for cat in TARGETS}
 
-        out_map = dict(handles)
-        handler = DocExtractor(out_map)
+for cat, fh in handles.items():
+    fh.write(f'<?xml version="1.0" encoding="UTF-8"?>\n')
+    fh.write(f'<preguntas categoria="{cat}">\n')
 
-        parser = xml.sax.make_parser()
-        parser.setContentHandler(handler)
-        parser.setFeature(xml.sax.handler.feature_validation, False)
-        parser.setFeature(xml.sax.handler.feature_namespaces, False)
+handler = DocExtractor(handles)
+parser = xml.sax.make_parser()
+parser.setContentHandler(handler)
+parser.setFeature(xml.sax.handler.feature_validation, False)
+parser.setFeature(xml.sax.handler.feature_namespaces, False)
 
-        try:
-            with open(XML_FILE, "rb") as raw:
-                parser.parse(WrappedFile(raw))
-        except Exception as e:
-            print(f"\n[AVISO] Parser terminó con: {e}")
-            print("Guardando lo recopilado...\n")
+try:
+    with open(XML_FILE, "rb") as raw:
+        parser.parse(WrappedFile(raw))
+except Exception as e:
+    print("El parser termino con un error:", e)
 
-        for fh in handles.values():
-            fh.write("</preguntas>\n")
+for fh in handles.values():
+    fh.write("</preguntas>\n")
+    fh.close()
 
-    finally:
-        for fh in handles.values():
-            fh.close()
-
-    print(f"\n{handler.total:,} documentos procesados en total.")
-    for cat in sorted(TARGETS):
-        out = output_path(cat)
-        print(f"{cat}: {handler.counts[cat]:,}: preguntas  {out.name}")
-
-
-if __name__ == "__main__":
-    main()
+print("Total documentos procesados:", handler.total)
+for cat in sorted(TARGETS):
+    print(cat + ":", handler.counts[cat], "preguntas")

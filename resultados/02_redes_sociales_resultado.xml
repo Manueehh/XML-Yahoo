@@ -1,0 +1,55 @@
+<?xml-stylesheet type="text/xsl" href="resultado.xsl"?>
+<exist:result xmlns:exist="http://exist.sourceforge.net/NS/exist" exist:hits="1" exist:start="1" exist:count="1" exist:compilation-time="14" exist:execution-time="14">
+    <analisis_redes_sociales fecha="2026-03-22T14:36:29.431+01:00"><!-- ══ 1. SIMETRÍA GLOBAL ══ -->
+        <simetria>
+            <descripcion>Baja simetría: pocos usuarios hacen ambas cosas (Shen 2015)</descripcion>
+            <total_usuarios_distintos>12881</total_usuarios_distintos>
+            <solo_preguntan total="6165" porcentaje="47.9%"/>
+            <solo_responden total="4732" porcentaje="36.7%"/>
+            <preguntan_y_responden total="1984" porcentaje="15.4%"/>
+        </simetria><!-- ══ 2. TOP 10 RESPONDEDORES GLOBALES ══ -->
+        <top_respondedores descripcion="Usuarios con más 'mejor respuesta' seleccionada">
+            <usuario id="u1012406" mejores_respuestas="398"/>
+            <usuario id="u314142" mejores_respuestas="121"/>
+            <usuario id="u1498832" mejores_respuestas="96"/>
+            <usuario id="u109816" mejores_respuestas="82"/>
+            <usuario id="u630738" mejores_respuestas="78"/>
+            <usuario id="u1172557" mejores_respuestas="67"/>
+            <usuario id="u699649" mejores_respuestas="62"/>
+            <usuario id="u449480" mejores_respuestas="61"/>
+            <usuario id="u1189756" mejores_respuestas="59"/>
+            <usuario id="u834397" mejores_respuestas="55"/>
+        </top_respondedores><!-- ══ 3. TOP 10 PREGUNTADORES GLOBALES ══ -->
+        <top_preguntadores descripcion="Usuarios que más preguntas han publicado">
+            <usuario id="u848081" preguntas="202"/>
+            <usuario id="u247692" preguntas="127"/>
+            <usuario id="u619305" preguntas="107"/>
+            <usuario id="u353201" preguntas="84"/>
+            <usuario id="u1302043" preguntas="76"/>
+            <usuario id="u1087435" preguntas="73"/>
+            <usuario id="u1646816" preguntas="55"/>
+            <usuario id="u425616" preguntas="53"/>
+            <usuario id="u832784" preguntas="53"/>
+            <usuario id="u699649" preguntas="52"/>
+        </top_preguntadores><!-- ══ 4. CLUSTERING POR CATEGORÍA ══ -->
+        <clustering descripcion="¿Los top respondedores se especializan en pocas categorías? (Shen 2015)">
+            <usuario id="u1012406" total_mejores="398" categorias_ES="2" categorias_IT="0" total_categorias="2"/>
+            <usuario id="u314142" total_mejores="121" categorias_ES="2" categorias_IT="0" total_categorias="2"/>
+            <usuario id="u1498832" total_mejores="96" categorias_ES="1" categorias_IT="0" total_categorias="1"/>
+            <usuario id="u109816" total_mejores="82" categorias_ES="2" categorias_IT="0" total_categorias="2"/>
+            <usuario id="u630738" total_mejores="78" categorias_ES="1" categorias_IT="0" total_categorias="1"/>
+        </clustering><!-- ══ 5. PUENTES ENTRE COMUNIDADES ES ↔ IT ══ -->
+        <puentes_es_it descripcion="Usuarios que responden en categorías ES e IT (bilingües/activos en ambas)">
+            <resumen total_puentes="2">
+                <usuario id="u252656" respuestas_ES="4" respuestas_IT="1"/>
+                <usuario id="u1426913" respuestas_ES="1" respuestas_IT="1"/>
+            </resumen>
+        </puentes_es_it><!-- ══ 6. SIMETRÍA POR CATEGORÍA ══ -->
+        <simetria_por_categoria>
+            <categoria nombre="Noticias y Actualidad" preguntadores="444" respondedores="489" ambas_cosas="49" simetria="5.5%"/>
+            <categoria nombre="Notizie ed eventi" preguntadores="826" respondedores="859" ambas_cosas="156" simetria="10.2%"/>
+            <categoria nombre="Politica e governo" preguntadores="1022" respondedores="994" ambas_cosas="272" simetria="15.6%"/>
+            <categoria nombre="Política y Gobierno" preguntadores="6141" respondedores="4919" ambas_cosas="1428" simetria="14.8%"/>
+        </simetria_por_categoria>
+    </analisis_redes_sociales>
+</exist:result>

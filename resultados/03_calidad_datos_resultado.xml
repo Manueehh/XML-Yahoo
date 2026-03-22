@@ -1,0 +1,59 @@
+<?xml-stylesheet type="text/xsl" href="resultado.xsl"?>
+<exist:result xmlns:exist="http://exist.sourceforge.net/NS/exist" exist:hits="1" exist:start="1" exist:count="1" exist:compilation-time="0" exist:execution-time="0">
+    <calidad_datos fecha="2026-03-22T14:36:47.248+01:00"><!-- ══ 1. COMPLETITUD DE CAMPOS ══ -->
+        <completitud>
+            <campo nombre="content" total="16952" presentes="11643" ausentes="5309" porcentaje_ausentes="31.3%"/>
+            <campo nombre="vot_date" total="16952" presentes="7942" ausentes="9010" porcentaje_ausentes="53.2%"/>
+        </completitud><!-- ══ 2. LONGITUDES DE TEXTO ══ -->
+        <longitudes>
+            <campo nombre="subject">
+                <min>2</min>
+                <max>110</max>
+                <media>65.3</media>
+            </campo>
+            <campo nombre="bestanswer">
+                <min>1</min>
+                <max>3996</max>
+                <media>438.5</media>
+            </campo>
+            <campo nombre="num_respuestas">
+                <min>1</min>
+                <max>78</max>
+                <media>9.5</media>
+            </campo>
+        </longitudes><!-- ══ 3. INCONSISTENCIAS DE FECHAS ══ -->
+        <consistencia_fechas>
+            <descripcion>Documentos donde date &gt; res_date (fecha resolución anterior a publicación)</descripcion>
+            <resultado total="0"/>
+        </consistencia_fechas><!-- ══ 4. ANOMALÍAS ══ -->
+        <anomalias>
+            <bestanswer_muy_corto umbral_chars="20">
+                <resultado total="677">
+                    <doc uri="3822975" cat="Noticias y Actualidad" bestanswer="............."/>
+                    <doc uri="844893" cat="Noticias y Actualidad" bestanswer="malo"/>
+                    <doc uri="607035" cat="Noticias y Actualidad" bestanswer="suerte.-"/>
+                    <doc uri="1840947" cat="Noticias y Actualidad" bestanswer="si, es ilegal."/>
+                    <doc uri="1479356" cat="Noticias y Actualidad" bestanswer="estaremos esperando"/>
+                </resultado>
+            </bestanswer_muy_corto>
+            <una_sola_respuesta>
+                <resultado total="847" porcentaje="5.0%"/>
+            </una_sola_respuesta>
+            <subject_muy_corto umbral_chars="10">
+                <resultado total="1">
+                    <doc uri="1403742" cat="Política y Gobierno" subject=" ?"/>
+                </resultado>
+            </subject_muy_corto>
+        </anomalias><!-- ══ 5. RESUELTAS EL MISMO DÍA ══ -->
+        <velocidad_resolucion>
+            <mismo_dia total="2843" porcentaje="16.8%"/>
+            <menos_de_una_hora total="0" porcentaje="0.0%"/>
+        </velocidad_resolucion><!-- ══ 6. CALIDAD POR CATEGORÍA ══ -->
+        <resumen_por_categoria>
+            <categoria nombre="Noticias y Actualidad" total="674" sin_content="219" pct_sin_content="32.5%" bestanswer_media_chars="344.9" media_respuestas="7.03"/>
+            <categoria nombre="Notizie ed eventi" total="1184" sin_content="405" pct_sin_content="34.2%" bestanswer_media_chars="338.7" media_respuestas="10.06"/>
+            <categoria nombre="Politica e governo" total="2118" sin_content="513" pct_sin_content="24.2%" bestanswer_media_chars="502.5" media_respuestas="12.02"/>
+            <categoria nombre="Política y Gobierno" total="12976" sin_content="4172" pct_sin_content="32.2%" bestanswer_media_chars="442.1" media_respuestas="9.19"/>
+        </resumen_por_categoria>
+    </calidad_datos>
+</exist:result>
