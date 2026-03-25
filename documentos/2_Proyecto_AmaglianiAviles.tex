@@ -212,7 +212,8 @@ El Listado~\ref{lst:xml} muestra la estructura de un documento.
 Los campos \texttt{content} y \texttt{vot\_date} son opcionales:
 ausentes en el 31,3\% y el 53,2\% de los documentos respectivamente.
 
-\begin{lstlisting}[language=XMLL,caption={Estructura de un documento del corpus.},label=lst:xml]
+\vspace{1cm}
+\begin{lstlisting}[language=XMLL,caption={Estructura de un documento del corpus.},label=lst:xml, xleftmargin=0.5cm]
 <preguntas categoria="Politica y Gobierno">
  <document>
   <uri>3086062</uri>
@@ -233,6 +234,8 @@ ausentes en el 31,3\% y el 53,2\% de los documentos respectivamente.
 %% ============================================
 \section{Herramientas y Tecnolog\'ias}
 %% ============================================
+En la siguiente sección se presentan las tecnologías utilizadas para el desarrollo del proyecto,
+con una breve descripción y la estructura del repositorio que hemos desarrollado para organizar el código y los datos.
 
 \begin{table}[H]
 \centering
@@ -255,7 +258,7 @@ Control versiones & Git / GitHub \\
 
 \subsection{Estructura del repositorio}
 
-\begin{lstlisting}[caption={Estructura del repositorio.}]
+\begin{lstlisting}[caption={Estructura del repositorio.}, xleftmargin=0.5cm]
 YahooAnswers-XML/
 |-- src/
 |   |-- extraer_categorias.py
@@ -268,6 +271,19 @@ YahooAnswers-XML/
 |-- xslt/     es_html.xsl, it_html.xsl
 +-- data/     preguntas_*.xml
 \end{lstlisting}
+
+\begin{itemize}
+  \item extraer\_categorias.py: script para extraer preguntas por categor\'ia.
+  \item extraer\_preguntas.py: script para extraer preguntas individuales.
+  \item cargar\_existdb.py: script para cargar XML en eXist-db.
+  \item ejecutar\_xquery.py: script para ejecutar consultas XQuery.
+\end{itemize}
+
+Las carpetas principales son:
+- \textbf{xquery/}: carpeta con las cuatro consultas XQuery desarrolladas.
+- \textbf{xsd/}: carpeta con el esquema XSD original y ampliado.
+- \textbf{xslt/}: carpeta con las transformaciones XSLT a HTML.
+- \textbf{data/}: carpeta con los cuatro ficheros XML extra\'idos por categor\'ia.
 
 %% ============================================
 \section{Dise\~no del Esquema XML (XSD)}
@@ -303,7 +319,7 @@ Se definen dos tipos simples restringidos: \texttt{CodigoIdioma}
 (patr\'on \texttt{[a-z]\{2\}}) y \texttt{UserId} (patr\'on
 \texttt{u[0-9]+}).
 
-\begin{lstlisting}[language=XMLL,caption={Fragmento del XSD original.},label=lst:xsd]
+\begin{lstlisting}[language=XMLL,caption={Fragmento del XSD original.},label=lst:xsd, xleftmargin=0.5cm]
 <xs:complexType name="DocumentType">
  <xs:all>
   <xs:element name="uri"
@@ -348,7 +364,7 @@ documento con el \texttt{subject} como t\'itulo, el \texttt{bestanswer}
 resaltado en verde, y un elemento \texttt{<details>} desplegable para
 las dem\'as respuestas.
 
-\begin{lstlisting}[language=XMLL,caption={Plantilla XSLT por documento.},label=lst:xslt]
+\begin{lstlisting}[language=XMLL,caption={Plantilla XSLT por documento.},label=lst:xslt, xleftmargin=0.5cm]
 <xsl:template match="document">
  <div class="documento">
   <div class="pregunta">
@@ -374,7 +390,7 @@ Se us\'o XSLT~1.0 para garantizar compatibilidad con \texttt{lxml} sin necesidad
 
 Los cuatro ficheros XML se organizan en dos subcolecciones:
 
-\begin{lstlisting}[caption={Colecciones en eXist-db.}]
+\begin{lstlisting}[caption={Colecciones en eXist-db.}, xleftmargin=0.5cm]
 /db/yahooanswers/
     es/  politica_y_gobierno.xml (95MB)
          noticias_y_actualidad.xml
@@ -394,7 +410,7 @@ devuelve 16.952, coincidiendo con el total esperado.
 
 \subsection{Estad\'isticas generales}
 
-\begin{lstlisting}[language=XQuery,caption={Estadisticas por categoria.}]
+\begin{lstlisting}[language=XQuery,caption={Estadisticas por categoria.}, xleftmargin=0.5cm]
 let $es := collection(
   "/db/yahooanswers/es")//document
 let $it := collection(
@@ -434,7 +450,7 @@ Notizie (IT)   &  1.184 &  11.907 & 10,06 \\
 Esta consulta calcula la simetr\'ia de participaci\'on, los usuarios
 \textit{top} y el \textit{clustering} por categor\'ia.
 
-\begin{lstlisting}[language=XQuery,caption={Calculo de simetria.}]
+\begin{lstlisting}[language=XQuery,caption={Calculo de simetria.}, xleftmargin=0.5cm]
 let $todos := ($es, $it)
 let $ids := distinct-values($todos/id)
 let $best := distinct-values(
@@ -503,7 +519,7 @@ respuestas concentradas en 2 categor\'ias, confirmando el elevado
 
 \subsection{Calidad de Datos}
 
-\begin{lstlisting}[language=XQuery,caption={Analisis de completitud.}]
+\begin{lstlisting}[language=XQuery,caption={Analisis de completitud.}, xleftmargin=0.5cm]
 let $todos := ($es,$it)
 return <completitud>{
   for $c in ("content","vot_date")
