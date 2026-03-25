@@ -1,0 +1,53 @@
+
+PREREQUISITO: eXist-db debe estar corriendo
+  %USERPROFILE%\eXist-db\bin\startup.bat
+
+
+--- PASO 1: Extraer categorías del XML bruto ---
+  Requiere: data/FullOct2007.xml
+  Genera:   data/preguntas_*.xml (uno por categoría)
+
+  python src/extraer_preguntas.py
+
+
+--- PASO 2: Validar XMLs con XSD (opcional) ---
+
+  xmllint --schema xsd/yahoo_answers.xsd data/preguntas_politica_y_gobierno.xml --noout
+  xmllint --schema xsd/yahoo_answers.xsd data/preguntas_noticias_y_actualidad.xml --noout
+  xmllint --schema xsd/yahoo_answers.xsd data/preguntas_politica_e_governo.xml --noout
+  xmllint --schema xsd/yahoo_answers.xsd data/preguntas_notizie_ed_eventi.xml --noout
+
+  (Con xmllint si está disponible:)
+  xmllint --schema xsd/yahoo_answers.xsd data/preguntas_politica_y_gobierno.xml --noout
+
+
+--- PASO 3: Cargar XMLs en eXist-db ---
+
+  python existdb/cargar_existdb.py
+
+  (Con parámetros opcionales:)
+  python existdb/cargar_existdb.py --host localhost --port 8080 --user admin --password admin
+
+
+--- PASO 4: Ejecutar consultas XQuery → guardar resultados ---
+
+  python existdb/ejecutar_xquery.py --todos --output resultados/
+
+  (O una a una:)
+  python existdb/ejecutar_xquery.py xquery/01_estadisticas.xq        --output resultados/
+  python existdb/ejecutar_xquery.py xquery/02_redes_sociales.xq      --output resultados/
+  python existdb/ejecutar_xquery.py xquery/03_calidad_datos.xq       --output resultados/
+  python existdb/ejecutar_xquery.py xquery/04_consultas_avanzadas.xq --output resultados/
+
+
+--- PASO 5: Transformar a HTML con XSLT (opcional) ---
+
+  xsltproc xslt/es_html.xsl data/preguntas_politica_y_gobierno.xml > output_es.html
+  xsltproc xslt/it_html.xsl data/preguntas_politica_e_governo.xml  > output_it.html
+
+
+--- PASO 6: Abrir dashboard de análisis ---
+
+  python ver_resultados.py
+
+
