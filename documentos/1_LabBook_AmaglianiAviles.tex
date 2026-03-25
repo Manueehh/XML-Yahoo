@@ -1,0 +1,566 @@
+\documentclass[11pt,a4paper]{article}
+
+% ── Encoding & Language ──
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[nil]{babel}
+
+% ── Fonts (matching original: Palatino body, Helvetica sans, Courier mono) ──
+\usepackage{mathpazo}        % Palatino (URWPalladioL equivalent)
+\usepackage[scaled=0.90]{helvet}   % Helvetica (BeraSans equivalent)
+\usepackage{courier}  % Courier (BeraSansMono equivalent)
+
+% ── Layout ──
+\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2.8cm, right=2.8cm]{geometry}
+\usepackage{microtype}
+\usepackage{parskip}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+
+% ── Colors ──
+\usepackage[dvipsnames,table]{xcolor}
+\definecolor{darkred}{HTML}{8C1414}
+\definecolor{brownday}{HTML}{681900}
+\definecolor{headergray}{HTML}{7F807F}
+\definecolor{tablegray}{HTML}{F2F2F2}
+\definecolor{titlegray}{HTML}{595959}
+
+% ── Tables ──
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{colortbl}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+
+% ── Headers & Footers ──
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead[L]{\footnotesize\sffamily\color{headergray}\leftmark}
+\fancyfoot[C]{\small\thepage\ | \pageref{lastpage}}
+
+% ── Section formatting (matching original: BeraSans-Bold, darkred, 17.8pt) ──
+\usepackage{titlesec}
+\titleformat{\section}
+  {\sffamily\bfseries\Large\color{darkred}}
+  {}{0em}{}
+\titlespacing{\section}{0pt}{18pt}{8pt}
+
+\titleformat{\subsection}
+  {\sffamily\bfseries\large\color{brownday}}
+  {}{0em}{}
+\titlespacing{\subsection}{0pt}{12pt}{4pt}
+
+\titleformat{\subsubsection}
+  {\rmfamily\bfseries\normalsize}
+  {}{0em}{}
+\titlespacing{\subsubsection}{0pt}{8pt}{3pt}
+
+% ── Mark for header ──
+\usepackage{nameref}
+\renewcommand{\sectionmark}[1]{\markboth{#1}{}}
+
+% ── TOC ──
+\usepackage{tocloft}
+\renewcommand{\cftsecfont}{\sffamily\bfseries}
+\renewcommand{\cftsecpagefont}{\sffamily\bfseries\color{darkred}}
+\renewcommand{\cftsubsecfont}{\rmfamily}
+\renewcommand{\cftsubsecpagefont}{\rmfamily\color{darkred}}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\setlength{\cftbeforesecskip}{4pt}
+
+% ── Hyperref ──
+\usepackage[hidelinks,colorlinks=false]{hyperref}
+
+% ── Misc ──
+\usepackage{enumitem}
+\setlist[itemize]{leftmargin=1.5em, itemsep=1pt, parsep=0pt, topsep=4pt}
+\renewcommand{\labelitemi}{$\bullet$}
+
+\newcommand{\notetitle}[1]{\subsubsection*{#1}}
+
+% ── Cover page ──
+\newcommand{\makecover}{%
+  \thispagestyle{empty}
+  \vspace*{3cm}
+  {\fontsize{42}{46}\selectfont\rmfamily\bfseries\color{darkred}LabBook\par}
+  \vspace{0.3cm}
+  {\large\sffamily\bfseries Diario del Proyecto\par}
+  \vspace{0.2cm}
+  {\large\rmfamily\color{titlegray}Análisis de Yahoo! Answers con XML y eXist-db\par}
+  \vspace{0.1cm}
+  {\large\rmfamily\color{titlegray}YahooAnswers-XML\par}
+  \vspace{1.5cm}
+  {\normalsize\rmfamily\bfseries Matteo Amagliani $\cdot$ Manuel Avilés Rodríguez\par}
+  \vspace{0.8cm}
+  {\normalsize\rmfamily Proyecto: YahooAnswers-XML --- Análisis con Bases de Datos Documentales\par}
+  {\normalsize\rmfamily Asignatura: Bases de Datos Documentales --- Módulo XML\par}
+  \vspace{0.3cm}
+  {\large\rmfamily\bfseries\color{darkred}Marzo 2026\par}
+  \newpage
+}
+
+% ── Activity table ──
+\newcommand{\activitytable}[2]{%
+  \begin{center}
+  \begin{tabular}{C{2.5cm} L{7.8cm} C{2.8cm} C{1.8cm}}
+  \toprule
+  \rowcolor{white}
+  \textbf{Hora} & \textbf{Actividad} & \textbf{Responsable} & \textbf{Duración} \\
+  \midrule
+  #1
+  \bottomrule
+  \end{tabular}
+  \end{center}
+  \vspace{-4pt}
+  {\small\textbf{Cuadro:} \textit{#2}}
+  \vspace{6pt}
+}
+
+\begin{document}
+
+\makecover
+
+% ════════ TOC ════════
+\tableofcontents
+\newpage
+
+% ════════════════════════════════════════════════════════
+\section{Semana 1: Preparación (16--17 Marzo 2026)}
+\markboth{Semana 1: Preparación (16--17 Marzo 2026)}{}
+
+\subsection*{1.\quad Planificación}
+
+\subsection{Domingo 16 de marzo}
+
+\activitytable{%
+  10:00--11:00 & Configuración repositorio: crear repo GitHub con estructura de carpetas, README, .gitignore & Ambos & 1 h \\
+  \rowcolor{tablegray}
+  11:00--12:00 & Exploración XML: analizar estructura de los 4 ficheros XML extraídos del corpus & Ambos & 1 h \\
+}{Registro de actividades --- Domingo 16 Mar.}
+
+\notetitle{Notas:}
+\begin{itemize}
+  \item Se creó el repositorio \textit{YahooAnswers-XML} en GitHub con la estructura de carpetas definida en la planificación: \texttt{src/}, \texttt{existdb/}, \texttt{xquery/}, \texttt{xsd/}, \texttt{xslt/}, \texttt{data/}.
+  \item Se añadió el fichero \texttt{.gitignore} para excluir los XML de datos (demasiado grandes para el repositorio) y los entornos virtuales de Python.
+  \item Se exploraron los 4 ficheros XML ya extraídos del corpus original (12 GB): \textit{preguntas\_politica\_y\_gobierno.xml} (12.976 docs), \textit{preguntas\_noticias\_y\_actualidad.xml} (674 docs), \textit{preguntas\_politica\_e\_governo.xml} (2.118 docs) y \textit{preguntas\_notizie\_ed\_eventi.xml} (1.184 docs).
+  \item Se verificó que la estructura XML de todos los ficheros es consistente: elemento raíz \texttt{<preguntas>} con atributo \texttt{categoria}, y elementos \texttt{<document>} con los campos del corpus original.
+\end{itemize}
+
+\subsection{Lunes 17 de marzo}
+
+\activitytable{%
+  10:00--11:30 & Instalación eXist-db: instalar y configurar eXist-db localmente. Probar panel de administración y REST API. & Ambos & 1,5 h \\
+}{Registro de actividades --- Lunes 17 Mar.}
+
+\notetitle{Notas:}
+\begin{itemize}
+  \item Se descargó el instalador de eXist-db 6.x desde GitHub Releases y se ejecutó mediante \texttt{java -jar eXist-db-setup-6.x.x.jar}.
+  \item Se verificó el acceso al panel de administración en \texttt{http://localhost:8080/exist/} y al editor de consultas eXide en \texttt{http://localhost:8080/exist/apps/eXide/}.
+  \item Se probó la REST API con una petición básica y se confirmó que responde correctamente con HTTP 200.
+\end{itemize}
+
+\notetitle{Dificultades encontradas:}
+\begin{itemize}
+  \item La instalación de eXist-db requirió Java 8+ preinstalado. En el sistema había Java 17, que resultó compatible sin problemas adicionales.
+  \item Al primer arranque, el proceso tardó aproximadamente 45 segundos en estar completamente operativo, lo que inicialmente generó confusión al intentar acceder al panel antes de tiempo.
+\end{itemize}
+
+\newpage
+
+% ════════════════════════════════════════════════════════
+\section{Semana 1 (cont.): Esquema XSD (17--19 Marzo 2026)}
+\markboth{Semana 1 (cont.): Esquema XSD (17--19 Marzo 2026)}{}
+
+\subsection{Martes 17 de marzo (tarde)}
+
+\activitytable{%
+  14:00--16:00 & XSD original: construir XSD que describe el formato actual de los XML del corpus & Manuel Avilés & 2 h \\
+}{Registro de actividades --- Martes 17 Mar.}
+
+\notetitle{Notas:}
+\begin{itemize}
+  \item Se construyó \textit{yahoo\_answers\_original.xsd} con la estructura real del corpus: elemento raíz \texttt{<preguntas>} con atributo obligatorio \texttt{categoria}, y tipo complejo \texttt{DocumentType} con todos los campos del corpus.
+  \item Campos obligatorios: \texttt{uri}, \texttt{subject}, \texttt{bestanswer}, \texttt{nbestanswers}, \texttt{cat}, \texttt{maincat}, \texttt{subcat}, \texttt{date}, \texttt{res\_date}, \texttt{lastanswerts}, \texttt{qlang}, \texttt{qintl}, \texttt{language}, \texttt{id}, \texttt{best\_id}.
+  \item Campos opcionales (\texttt{minOccurs="0"}): \texttt{content} (ausente en el 31,3\% de los documentos) y \texttt{vot\_date} (ausente en el 53,2\%).
+  \item Se definieron dos tipos simples restringidos: \texttt{CodigoIdioma} (patrón \texttt{[a-z]\{2\}}) y \texttt{UserId} (patrón \texttt{u[0-9]+}).
+\end{itemize}
+
+\subsection{Miércoles 18 de marzo}
+
+\activitytable{%
+  10:00--12:30 & XSD ampliado: diseñar extensión del esquema con métricas de calidad y nodos de red social & Matteo Amagliani & 2,5 h \\
+}{Registro de actividades --- Miércoles 18 Mar.}
+
+\notetitle{Notas:}
+\begin{itemize}
+  \item Se diseñó \textit{yahoo\_answers\_extended.xsd} como extensión del esquema original, añadiendo dos nuevos elementos opcionales al tipo \texttt{DocumentType}:
+  \begin{itemize}
+    \item \texttt{<metricas\_calidad>}: campos derivados como \texttt{tiene\_content}, \texttt{longitud\_subject}, \texttt{longitud\_bestanswer}, \texttt{num\_respuestas}, \texttt{fue\_votado} y \texttt{tiempo\_resolucion\_seg}.
+    \item \texttt{<red\_social>}: anotaciones para el análisis de redes, con campos \texttt{autor\_es\_respondedor}, \texttt{subcats\_usuario} y \texttt{peso\_enlace}.
+  \end{itemize}
+  \item Todos los campos nuevos son opcionales para mantener compatibilidad con los XML existentes del corpus.
+\end{itemize}
+
+\notetitle{Dificultades encontradas:}
+\begin{itemize}
+  \item Decidir el nivel de extensión del esquema: se optó por añadir solo campos que aportan valor analítico real y que pueden calcularse a partir de los datos existentes, en lugar de crear campos especulativos.
+\end{itemize}
+
+\subsection{Jueves 19 de marzo (mañana)}
+
+\activitytable{%
+  10:00--12:00 & Validación XML: probar los XSD contra los 4 ficheros XML con \texttt{validate\_xml.py} & Manuel Avilés & 2 h \\
+}{Registro de actividades --- Jueves 19 Mar. (mañana)}
+
+\notetitle{Notas:}
+\begin{itemize}
+  \item Se ejecutó \texttt{validate\_xml.py} sobre los 4 ficheros XML usando \texttt{lxml}. Los 4 pasaron la validación contra el XSD original sin errores.
+  \item Se confirmó que el campo \texttt{content} aparece en algunos documentos pero no en otros, validando el \texttt{minOccurs="0"} del esquema.
+\end{itemize}
+
+\newpage
+
+% ════════════════════════════════════════════════════════
+\section{Semana 2: XSLT y Carga en eXist-db (19--20 Marzo 2026)}
+\markboth{Semana 2: XSLT y Carga en eXist-db (19--20 Marzo 2026)}{}
+
+\subsection{Jueves 19 de marzo (tarde)}
+
+\activitytable{%
+  14:00--16:00 & XSLT Inmigración/Actualidad: transformación HTML navegable para las categorías en español & Manuel Avilés & 2 h \\
+  \rowcolor{tablegray}
+  14:00--16:00 & XSLT Immigrazione/Attualità: transformación HTML navegable para las categorías en italiano & Matteo Amagliani & 2 h \\
+}{Registro de actividades --- Jueves 19 Mar. (tarde)}
+
+\notetitle{Notas:}
+\begin{itemize}
+  \item Se crearon dos ficheros XSLT: \textit{es\_html.xsl} (cabecera azul, textos en español) e \textit{it\_html.xsl} (cabecera roja, textos en italiano).
+  \item Ambas transformaciones generan una página HTML con: cabecera con nombre de categoría, total de preguntas, y una tarjeta por documento con el \texttt{subject}, el \texttt{bestanswer} resaltado en verde y un desplegable para las demás respuestas.
+  \item Se aplicaron localmente con \texttt{lxml}: la transformación del fichero más grande (\textit{politica\_y\_gobierno.xml}, 12.976 documentos) generó un HTML de aproximadamente 45 MB en 8 segundos.
+\end{itemize}
+
+\notetitle{Decisiones tomadas:}
+\begin{itemize}
+  \item Se usó XSLT 1.0 para garantizar compatibilidad con \texttt{lxml} sin necesidad de Saxon. Las funciones avanzadas de XSLT 2.0 no eran necesarias para esta transformación.
+\end{itemize}
+
+\subsection{Viernes 20 de marzo (mañana)}
+
+\activitytable{%
+  10:00--11:30 & Carga XML: cargar los 4 XML en eXist-db usando REST API (script \texttt{cargar\_existdb.py}) & Ambos & 1,5 h \\
+}{Registro de actividades --- Viernes 20 Mar. (mañana)}
+
+\notetitle{Notas:}
+\begin{itemize}
+  \item Se ejecutó \texttt{cargar\_existdb.py}, que crea las colecciones \texttt{/db/yahooanswers/es/} e \texttt{/db/yahooanswers/it/} y sube cada fichero XML mediante HTTP PUT.
+  \item Tiempos de carga: \textit{noticias\_y\_actualidad.xml} (1 s), \textit{notizie\_ed\_eventi.xml} (3 s), \textit{politica\_e\_governo.xml} (5 s), \textit{politica\_y\_gobierno.xml} (38 s).
+  \item Se verificó la carga ejecutando \texttt{count(collection("/db/yahooanswers")//document)} en eXide: resultado 16.952, coincide con el total esperado.
+\end{itemize}
+
+\notetitle{Dificultades encontradas:}
+\begin{itemize}
+  \item El fichero \textit{politica\_y\_gobierno.xml} ($\approx$95 MB) fue rechazado con HTTP 413 en el primer intento. Se solucionó editando \texttt{\$EXIST\_HOME/etc/jetty/webdefault.xml} aumentando el límite de tamaño de petición a 200 MB.
+  \item Se aumentó el timeout del script de carga a 300 segundos para el fichero más grande.
+\end{itemize}
+
+\newpage
+
+% ════════════════════════════════════════════════════════
+\section{Semana 3: Análisis con XQuery (20--22 Marzo 2026)}
+\markboth{Semana 3: Análisis con XQuery (20--22 Marzo 2026)}{}
+
+\subsection{Viernes 20 de marzo (tarde)}
+
+\activitytable{%
+  14:00--16:00 & Consultas básicas XQuery: estadísticas generales, distribución por subcategorías, campos ausentes & Matteo Amagliani & 2 h \\
+}{Registro de actividades --- Viernes 20 Mar. (tarde)}
+
+\notetitle{Notas:}
+\begin{itemize}
+  \item Se desarrolló \textit{01\_estadisticas.xq} con conteos por categoría, media de respuestas, distribución de subcategorías y porcentaje de documentos sin campo \texttt{content}.
+  \item Resultados: total 16.952 documentos, 161.365 respuestas. \textit{Política y Gobierno} (ES) concentra el 76,5\% de las preguntas. La media de respuestas por pregunta varía de 7,03 (Noticias y Actualidad) a 12,02 (Politica e governo IT).
+  \item La consulta se ejecutó en 0 ms según el tiempo devuelto por eXist-db, gracias a sus índices internos de colección.
+\end{itemize}
+
+\subsection{Sábado 21 de marzo}
+
+\activitytable{%
+  10:00--12:30 & Análisis Redes Sociales: XQuery sobre usuarios top, simetría pregunta/respuesta, clustering por categoría & Manuel Avilés & 2,5 h \\
+  \rowcolor{tablegray}
+  14:00--16:00 & Calidad de Datos: XQuery sobre nulos, longitudes, fechas inconsistentes y anomalías & Matteo Amagliani & 2 h \\
+}{Registro de actividades --- Sábado 21 Mar.}
+
+\notetitle{Notas:}
+\begin{itemize}
+  \item Se desarrolló \textit{02\_redes\_sociales.xq}. Resultados más relevantes:
+  \begin{itemize}
+    \item De los 12.881 usuarios distintos, el 47,9\% solo pregunta, el 36,7\% solo responde y únicamente el 15,4\% hace ambas cosas. Baja simetría consistente con la literatura.
+    \item El usuario más activo como respondedor (\texttt{u1012406}) acumula 398 mejores respuestas, concentradas en 2 categorías únicas (clustering elevado).
+    \item Solo 2 usuarios participan activamente tanto en la comunidad hispanohablante como en la italohablante, lo que confirma que ambas comunidades son prácticamente independientes.
+  \end{itemize}
+  \item Se desarrolló \textit{03\_calidad\_datos.xq}. Resultados más relevantes:
+  \begin{itemize}
+    \item El campo \texttt{content} está ausente en el 31,3\% de los documentos y \texttt{vot\_date} en el 53,2\%.
+    \item Longitud media del \texttt{bestanswer}: 438,5 caracteres. El máximo es 3.996 caracteres y el mínimo 1 carácter.
+    \item 677 documentos tienen una mejor respuesta de menos de 20 caracteres (anomalía de calidad).
+    \item No se detectaron inconsistencias de fechas (ningún documento con \texttt{date} $>$ \texttt{res\_date}).
+    \item El 16,8\% de las preguntas se resolvieron el mismo día de publicación.
+  \end{itemize}
+\end{itemize}
+
+\notetitle{Dificultades encontradas:}
+\begin{itemize}
+  \item La consulta de redes sociales tardó 14 segundos en ejecutarse sobre los 16.952 documentos. Aunque aceptable, se identificó como un área de mejora con índices adicionales en eXist-db.
+\end{itemize}
+
+\subsection{Domingo 22 de marzo}
+
+\activitytable{%
+  10:00--12:00 & Consultas avanzadas: XQuery comparativa ES vs IT, palabras clave en política, preguntas sin respuesta & Ambos & 2 h \\
+}{Registro de actividades --- Domingo 22 Mar.}
+
+\notetitle{Notas:}
+\begin{itemize}
+  \item Se desarrolló \textit{04\_consultas\_avanzadas.xq} con tres secciones: comparativa ES vs IT, palabras clave políticas y preguntas sin respuesta.
+  \item Comparativa ES vs IT: los usuarios italianos responden de media 11,32 veces por pregunta frente a 9,08 de los hispanohablantes, y sus respuestas son ligeramente más largas (443,8 vs 437,3 caracteres de media).
+  \item Palabras clave: \textit{presidente} aparece en 732 preguntas de política, seguido de \textit{gobierno} (429) y \textit{ley} (273). El término italiano \textit{governo} aparece en 112 preguntas.
+  \item Preguntas sin respuesta: 0. Todas las preguntas del corpus tienen al menos una respuesta registrada.
+\end{itemize}
+
+\notetitle{Dificultades encontradas:}
+\begin{itemize}
+  \item La primera versión de \textit{04\_consultas\_avanzadas.xq} incluía ordenación de los 17.000 documentos y agrupación con \texttt{group by}. Ambas operaciones causaron timeout de 300 segundos en eXist-db al no disponer de índices específicos. Se simplificó la consulta eliminando esas secciones.
+\end{itemize}
+
+\newpage
+
+% ════════════════════════════════════════════════════════
+\section{Semana 4: Documentación y Entrega (22--25 Marzo 2026)}
+\markboth{Semana 4: Documentación y Entrega (22--25 Marzo 2026)}{}
+
+\subsection{Lunes 23 de marzo}
+
+\activitytable{%
+  10:00--14:00 & Redacción memoria T1: arquitectura, esquemas, XSLT, consultas, resultados y capturas & Ambos & 4 h \\
+}{Registro de actividades --- Lunes 23 Mar.}
+
+\notetitle{Notas:}
+\begin{itemize}
+  \item Se redactaron las secciones principales de la memoria: introducción al corpus, descripción de la estructura XML, diseño del XSD original y extendido, explicación de las transformaciones XSLT, descripción de la carga en eXist-db y análisis de resultados de las 4 consultas XQuery.
+  \item Se incluyeron capturas de pantalla del editor eXide con los resultados de cada consulta, y ejemplos de las páginas HTML generadas por los XSLT.
+\end{itemize}
+
+\subsection{Martes 24 de marzo}
+
+\activitytable{%
+  10:00--12:00 & Dashboard de resultados: desarrollo del visor HTML interactivo con gráficos Chart.js & Matteo Amagliani & 2 h \\
+  \rowcolor{tablegray}
+  12:00--13:00 & Colchón de desviaciones: corrección de errores menores en XSD y ajustes de consultas & Ambos & 1 h \\
+  14:00--15:30 & Revisión cruzada de la memoria y correcciones finales & Ambos & 1,5 h \\
+}{Registro de actividades --- Martes 24 Mar.}
+
+\notetitle{Notas:}
+\begin{itemize}
+  \item Se desarrolló \texttt{ver\_resultados.py}, un script que genera un dashboard HTML interactivo con 4 pestañas (Estadísticas, Redes Sociales, Calidad de Datos, Consultas Avanzadas) y gráficos Chart.js a partir de los XML de resultados generados por eXist-db.
+  \item El dashboard usa un diseño oscuro con tipografías Inter y JetBrains Mono, y una paleta de colores personalizada (cian para ES, naranja-salmón para IT).
+  \item Se realizó revisión cruzada de la memoria.
+\end{itemize}
+
+\subsection{Miércoles 25 de marzo}
+
+\activitytable{%
+  10:00--11:00 & Revisión y empaquetado T1: verificar repo, nombrado final de ficheros, subida a GitHub & Ambos & 1 h \\
+  \rowcolor{tablegray}
+  11:00--12:00 & Preparación de la presentación oral para la defensa del 26 de marzo & Ambos & 1 h \\
+}{Registro de actividades --- Miércoles 25 Mar.}
+
+\notetitle{Notas:}
+\begin{itemize}
+  \item Se verificó la estructura completa del repositorio: todos los ficheros en su carpeta correcta, README actualizado con el flujo completo paso a paso.
+  \item Se exportaron los documentos entregables: memoria en PDF, LabBook, documento de contribuciones.
+  \item Entrega realizada antes de las 20:00 del miércoles 25 de marzo, dentro del plazo establecido.
+\end{itemize}
+
+\notetitle{Documentos generados:}
+\begin{itemize}
+  \item \textit{2\_Proyecto\_AmaglianiAviles.pdf}: Memoria completa del proyecto.
+  \item \textit{1\_LabBook\_AmaglianiAviles.pdf}: LabBook actualizado.
+  \item \textit{0\_Contribuciones\_AmaglianiAviles.pdf}: Documento de contribuciones con firmas.
+\end{itemize}
+
+\newpage
+
+% ════════════════════════════════════════════════════════
+\section*{Resumen de Actividades (al 25 de marzo)}
+\addcontentsline{toc}{section}{Resumen de Actividades (al 25 de marzo)}
+\markboth{Resumen de Actividades (al 25 de marzo)}{}
+
+\begin{center}
+\begin{tabular}{L{11cm} C{3.5cm}}
+\toprule
+\textbf{Actividad} & \textbf{Estado} \\
+\midrule
+Configuración del repositorio & Completado \\
+\rowcolor{tablegray}
+Instalación y configuración de eXist-db & Completado \\
+Exploración de los 4 ficheros XML del corpus & Completado \\
+\rowcolor{tablegray}
+XSD original (formato actual del corpus) & Completado \\
+XSD ampliado (métricas de calidad y red social) & Completado \\
+\rowcolor{tablegray}
+Validación XML contra XSD con \texttt{lxml} & Completado \\
+XSLT Inmigración/Actualidad (ES $\to$ HTML) & Completado \\
+\rowcolor{tablegray}
+XSLT Immigrazione/Attualità (IT $\to$ HTML) & Completado \\
+Carga de los 4 XML en eXist-db (REST API) & Completado \\
+\rowcolor{tablegray}
+\textit{01\_estadisticas.xq}: estadísticas generales & Completado \\
+\textit{02\_redes\_sociales.xq}: simetría y usuarios top & Completado \\
+\rowcolor{tablegray}
+\textit{03\_calidad\_datos.xq}: completitud, anomalías, fechas & Completado \\
+\textit{04\_consultas\_avanzadas.xq}: comparativa ES/IT, palabras clave & Completado \\
+\rowcolor{tablegray}
+Dashboard HTML interactivo (\texttt{ver\_resultados.py}) & Completado \\
+Memoria del proyecto & Completado \\
+\rowcolor{tablegray}
+LabBook & Completado \\
+Documento de contribuciones & Completado \\
+\rowcolor{tablegray}
+Empaquetado y entrega final & Completado \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\newpage
+
+% ════════════════════════════════════════════════════════
+\section*{Anexo: Resumen de Tiempo Dedicado y Dificultades}
+\addcontentsline{toc}{section}{Anexo: Resumen de Tiempo Dedicado y Dificultades}
+\markboth{Anexo: Resumen de Tiempo Dedicado y Dificultades}{}
+
+\subsection*{A.1\quad Tiempo Dedicado}
+
+\notetitle{Por día}
+
+\begin{center}
+\begin{tabular}{L{3cm} C{1.8cm} L{9cm}}
+\toprule
+\textbf{Fecha} & \textbf{Horas} & \textbf{Actividades principales} \\
+\midrule
+Dom 16 mar & 2,0 h & Configuración repositorio, exploración XML \\
+\rowcolor{tablegray}
+Lun 17 mar & 2,5 h & Instalación eXist-db, XSD original \\
+Mar 17 mar (tarde) & 2,5 h & XSD original (cont.), inicio XSD ampliado \\
+\rowcolor{tablegray}
+Mié 18 mar & 2,5 h & XSD ampliado, inicio XSLT \\
+Jue 19 mar & 5,5 h & XSLT ES e IT, validación XML, carga eXist-db \\
+\rowcolor{tablegray}
+Vie 20 mar & 4,5 h & Carga eXist-db, consultas básicas XQuery \\
+Sáb 21 mar & 4,5 h & Análisis Redes Sociales, Calidad de Datos \\
+\rowcolor{tablegray}
+Dom 22 mar & 4,0 h & Consultas avanzadas, corrección timeout \\
+Lun 23 mar & 4,0 h & Redacción memoria T1 \\
+\rowcolor{tablegray}
+Mar 24 mar & 4,5 h & Dashboard, colchón, revisión cruzada \\
+Mié 25 mar & 2,0 h & Empaquetado y entrega final \\
+\midrule
+\rowcolor{tablegray}
+\textbf{Total} & \textbf{38,5 h} & \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{8pt}
+\notetitle{Por componente del equipo}
+
+\begin{center}
+\begin{tabular}{L{8cm} C{2.5cm} C{2.5cm}}
+\toprule
+\textbf{Componente} & \textbf{Horas} & \textbf{Porcentaje} \\
+\midrule
+Matteo Amagliani & 19,0 h & 49\% \\
+\rowcolor{tablegray}
+Manuel Avilés Rodríguez & 19,5 h & 51\% \\
+\midrule
+\rowcolor{tablegray}
+\textbf{Total} & \textbf{38,5 h} & \textbf{100\%} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{8pt}
+\notetitle{Por tipo de actividad}
+
+\begin{center}
+\begin{tabular}{L{9cm} C{2cm} C{2.5cm}}
+\toprule
+\textbf{Tipo de actividad} & \textbf{Horas} & \textbf{Porcentaje} \\
+\midrule
+Preparación (repositorio, exploración XML) & 3,0 h & 8\% \\
+\rowcolor{tablegray}
+Instalación y configuración eXist-db & 2,5 h & 6\% \\
+Diseño XSD original y ampliado & 6,5 h & 17\% \\
+\rowcolor{tablegray}
+Transformaciones XSLT & 4,0 h & 10\% \\
+Carga en eXist-db & 1,5 h & 4\% \\
+\rowcolor{tablegray}
+Consultas XQuery (4 consultas) & 8,5 h & 22\% \\
+Dashboard de resultados & 2,0 h & 5\% \\
+\rowcolor{tablegray}
+Documentación y memoria & 8,0 h & 21\% \\
+Empaquetado y entrega & 2,5 h & 7\% \\
+\midrule
+\rowcolor{tablegray}
+\textbf{Total} & \textbf{38,5 h} & \textbf{100\%} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{12pt}
+\subsection*{A.2\quad Dificultades Encontradas}
+
+\notetitle{Dificultad 1: Tiempo de arranque de eXist-db}
+\textbf{Tipo:} Técnica\\
+\textbf{Descripción:} Al primer arranque de eXist-db, el proceso tardó aproximadamente 45 segundos en estar completamente operativo. Intentar acceder al panel antes de que terminase de arrancar devolvía errores de conexión.\\
+\textbf{Solución:} Esperar a que el log de arranque indicase \texttt{Server has started, listening on: http://localhost:8080/} antes de hacer ninguna petición.\\
+\textbf{Impacto:} Bajo --- solo afectó al primer uso.
+
+\vspace{6pt}
+\notetitle{Dificultad 2: Límite de tamaño de petición en eXist-db}
+\textbf{Tipo:} Técnica\\
+\textbf{Descripción:} El fichero \textit{politica\_y\_gobierno.xml} ($\approx$95 MB) fue rechazado con HTTP 413 en el primer intento de carga, ya que el servidor Jetty embebido en eXist-db tiene un límite de tamaño de petición por defecto.\\
+\textbf{Solución:} Se editó el fichero \texttt{\$EXIST\_HOME/etc/jetty/webdefault.xml} aumentando el parámetro \texttt{maxFormContentSize} a 200 MB. También se aumentó el timeout del script de carga a 300 segundos.\\
+\textbf{Tiempo perdido:} $\sim$30 minutos.
+
+\vspace{6pt}
+\notetitle{Dificultad 3: Timeout en consulta XQuery con ordenación global}
+\textbf{Tipo:} Técnica\\
+\textbf{Descripción:} La primera versión de \textit{04\_consultas\_avanzadas.xq} incluía la ordenación de los 17.000 documentos por número de respuestas para obtener el top 3 por categoría. Esta operación causaba timeout a los 300 segundos sin devolver ningún resultado.\\
+\textbf{Solución:} Se eliminó la sección de top preguntas más respondidas de la consulta 4. Se mantuvo únicamente la comparativa ES/IT, las palabras clave y las preguntas sin respuesta, que son operaciones de agregación simple sin ordenación global.\\
+\textbf{Tiempo perdido:} $\sim$1 hora (dos intentos fallidos y rediseño).
+
+\vspace{6pt}
+\notetitle{Dificultad 4: Compatibilidad XSLT 1.0 vs 2.0}
+\textbf{Tipo:} Técnica\\
+\textbf{Descripción:} La plantilla XSLT inicialmente usaba funciones de XPath 2.0. Aunque eXist-db soporta XSLT 2.0, la librería \texttt{lxml} de Python solo soporta XSLT 1.0, por lo que la transformación local fallaba.\\
+\textbf{Solución:} Se reescribieron los XSLT usando únicamente funciones de XSLT 1.0 compatibles con \texttt{lxml}.\\
+\textbf{Tiempo perdido:} $\sim$20 minutos.
+
+\vspace{6pt}
+\notetitle{Dificultad 5: Campos opcionales en el XSD}
+\textbf{Tipo:} Diseño\\
+\textbf{Descripción:} El campo \texttt{content} está ausente en el 31,3\% de los documentos y \texttt{vot\_date} en el 53,2\%. Definir estos campos como obligatorios hacía fallar la validación de casi un tercio del corpus.\\
+\textbf{Solución:} Se marcaron \texttt{content} y \texttt{vot\_date} con \texttt{minOccurs="0"} en el XSD, reflejando correctamente la naturaleza opcional de estos campos en el corpus real.\\
+\textbf{Impacto:} Bajo --- detectada rápidamente en la primera ejecución de \texttt{validate\_xml.py}.
+
+\vspace{20pt}
+\hrule
+\vspace{6pt}
+{\small\textit{Última actualización: 25 de marzo de 2026}}
+
+\label{lastpage}
+\end{document}

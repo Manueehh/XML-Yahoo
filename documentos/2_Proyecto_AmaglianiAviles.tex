@@ -1,0 +1,757 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% YahooAnswers-XML — Entrega Final
+% Bases de Datos Documentales — 25 de marzo 2026
+% Estilo: dos columnas, IEEE-like
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[10pt,twocolumn,a4paper]{article}
+
+% ── Layout IEEE-like ──
+\usepackage[a4paper,top=1.9cm,bottom=2.4cm,left=1.6cm,right=1.6cm,columnsep=0.65cm]{geometry}
+
+% ── Encoding ──
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[nil]{babel}
+
+% ── Math / Symbols ──
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{textcomp}
+
+% ── Graphics / Color ──
+\usepackage{graphicx}
+\usepackage{xcolor}
+\definecolor{statusgreen}{rgb}{0.13,0.55,0.13}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+
+% ── Tables ──
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{caption}
+\captionsetup{font=footnotesize,labelfont=bf,skip=3pt}
+
+% ── URLs ──
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+
+% ── Lists ──
+\usepackage{enumitem}
+
+% ── Code listings ──
+\usepackage{listings}
+\lstset{
+    basicstyle=\ttfamily\scriptsize,
+    breaklines=true,
+    frame=single,
+    numbers=left,
+    numberstyle=\tiny\color{codegray},
+    keywordstyle=\color{blue!70!black},
+    commentstyle=\color{green!50!black},
+    stringstyle=\color{red!60!black},
+    showstringspaces=false,
+    tabsize=2,
+    captionpos=b,
+    literate={a'}{a}1 {e'}{e}1 {i'}{i}1 {o'}{o}1 {u'}{u}1
+             {ny}{{n}}1
+}
+\lstdefinelanguage{XQuery}{
+    morekeywords={let,for,where,return,if,then,else,and,or,not,
+                  collection,doc,distinct-values,count,avg,min,max,
+                  sum,string-length,contains,lower-case,subsequence,
+                  format-number,current-dateTime,xs,string,number,
+                  order,by,descending,ascending,in},
+    morecomment=[s]{(:}{:)},
+    morestring=[b]",
+    sensitive=true
+}
+\lstdefinelanguage{XMLL}{
+    morestring=[b]",
+    morecomment=[s]{<!--}{-->},
+    stringstyle=\color{red!60!black},
+    keywordstyle=\color{blue!70!black}
+}
+
+% ── Section headings IEEE style ──
+\usepackage{titlesec}
+\titleformat{\section}{\normalsize\bfseries\centering}{\Roman{section}.}{0.5em}{\MakeUppercase}
+\titleformat{\subsection}{\small\bfseries\itshape}{\Alph{subsection}.}{0.5em}{}
+\titleformat{\subsubsection}{\small\itshape}{\arabic{subsubsection})}{0.4em}{}
+\titlespacing{\section}{0pt}{8pt}{4pt}
+\titlespacing{\subsection}{0pt}{5pt}{2pt}
+\titlespacing{\subsubsection}{0pt}{3pt}{1pt}
+
+% ── Abstract ──
+\usepackage{abstract}
+\renewcommand{\abstractnamefont}{\normalfont\small\bfseries}
+\renewcommand{\abstracttextfont}{\normalfont\small\itshape}
+\setlength{\absleftindent}{0pt}
+\setlength{\absrightindent}{0pt}
+
+% ── Header / Footer ──
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[C]{\small\thepage}
+
+% ── IEEE-like author helpers ──
+\newcommand{\IEEEauthorblockN}[1]{\textbf{#1}\\[2pt]}
+\newcommand{\IEEEauthorblockA}[1]{{\footnotesize #1}}
+
+% ── Paragraph spacing ──
+\setlength{\parskip}{2pt}
+\setlength{\parindent}{1em}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% ── Title (one-column) ──
+\onecolumn
+\begin{center}
+  {\large\bfseries YahooAnswers-XML: An\'alisis de Yahoo! Answers\\[4pt]
+   con XML, XSD, XSLT, XQuery y eXist-db}\\[10pt]
+  \begin{tabular}{cc}
+    \textbf{Matteo Amagliani} & \textbf{Manuel Avil\'es Rodr\'iguez} \\[2pt]
+    {\small Universidad de Castilla-La Mancha} & {\small Universidad de Castilla-La Mancha} \\
+    {\small Grado en Ingenier\'ia Inform\'atica} & {\small Grado en Ingenier\'ia Inform\'atica} \\
+    {\small matteo.amagliani1@alu.uclm.es} & {\small manuel.aviles@alu.uclm.es}
+  \end{tabular}\\[10pt]
+  \rule{0.93\textwidth}{0.4pt}
+\end{center}
+
+\begin{abstract}
+\noindent
+Este documento presenta el dise\~no e implementaci\'on de \textbf{YahooAnswers-XML},
+un sistema de an\'alisis del corpus p\'ublico de Yahoo! Answers (octubre~2007)
+mediante tecnolog\'ias XML y bases de datos documentales. El sistema procesa
+16.952 preguntas y 161.365 respuestas distribuidas en cuatro categor\'ias
+tem\'aticas bilingues (espa\~nol e italiano), aplicando un flujo completo
+de extracci\'on, validaci\'on, transformaci\'on y consulta. Se describen el
+dise\~no del esquema XSD, las transformaciones XSLT, la carga en
+\textbf{eXist-db} y las cuatro consultas XQuery desarrolladas para el
+an\'alisis de Redes Sociales y Calidad de Datos. Los resultados revelan
+patrones de baja simetr\'ia usuario-pregunta/respuesta, diferencias
+significativas entre comunidades hispanohablante e italohablante, y una
+calidad de datos generalmente alta con algunas anomal\'ias identificadas.
+\end{abstract}
+
+\smallskip
+\noindent{\footnotesize\textbf{Palabras clave---}\itshape
+XML, XSD, XSLT, XQuery, eXist-db, Bases de Datos Documentales,
+Yahoo! Answers, An\'alisis de Redes Sociales, Calidad de Datos.}
+\vspace{6pt}
+
+\begin{center}\rule{0.93\textwidth}{0.4pt}\end{center}
+\vspace{4pt}
+\twocolumn
+
+%% ============================================
+\section{Introducci\'on}
+%% ============================================
+
+Yahoo! Answers fue durante a\~nos uno de los sistemas de preguntas y
+respuestas comunitarias m\'as grandes del mundo. El corpus p\'ublico
+\textit{ydata-yanswers-all-questions-v1\_0}~\cite{yahoowebscope}, con
+\textbf{4.483.032 preguntas} recogidas en octubre de 2007, contiene el
+texto de cada pregunta, todas sus respuestas y la identificaci\'on de
+la mejor respuesta seleccionada. Este proyecto aplica las tecnolog\'ias
+del m\'odulo XML de Bases de Datos Documentales a cuatro categor\'ias
+bilingues de dicho corpus.
+
+\subsection{Objetivo general}
+
+Analizar el corpus en las categor\'ias \textit{Pol\'itica y Gobierno}
+y \textit{Noticias y Actualidad} (ES/IT) mediante XML y eXist-db,
+realizando an\'alisis de Redes Sociales y Calidad de Datos.
+
+\subsection{Objetivos espec\'ificos}
+
+\begin{enumerate}[leftmargin=1.8em,itemsep=0pt,topsep=2pt]
+    \item Dise\~nar un esquema XSD que valide la estructura del corpus.
+    \item Construir un XSD ampliado con m\'etricas de calidad y
+          anotaciones de red social.
+    \item Implementar transformaciones XSLT a HTML navegable.
+    \item Cargar los XML en eXist-db y desarrollar consultas XQuery.
+    \item Analizar Redes Sociales y Calidad de Datos sobre el corpus.
+\end{enumerate}
+
+%% ============================================
+\section{Corpus y Fuentes de Datos}
+%% ============================================
+
+\subsection{Yahoo! Answers Corpus (oct. 2007)}
+
+El dataset utilizado es el corpus oficial de Yahoo! Research
+Webscope~\cite{yahoowebscope}, un fichero XML de 12~GB. Para este trabajo
+se extrajeron subconjuntos por categor\'ia mediante un \textit{parser} SAX
+en Python, obteniendo cuatro ficheros XML manejables (Tabla~\ref{tab:categorias}).
+
+\begin{table}[H]
+\centering
+\caption{Categor\'ias seleccionadas y volumen de datos.}
+\label{tab:categorias}
+\begin{tabular}{p{2.2cm}lrr}
+\toprule
+\textbf{Categor\'ia} & \textbf{Id.} & \textbf{Preg.} & \textbf{Resp.} \\
+\midrule
+Pol\'itica y Gob. & ES & 12.976 & 119.262 \\
+Noticias y Act.   & ES &    674 &   4.740 \\
+Politica e gov.   & IT &  2.118 &  25.456 \\
+Notizie ed ev.    & IT &  1.184 &  11.907 \\
+\midrule
+\textbf{Total} & & \textbf{16.952} & \textbf{161.365} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Estructura XML del corpus}
+
+El Listado~\ref{lst:xml} muestra la estructura de un documento.
+Los campos \texttt{content} y \texttt{vot\_date} son opcionales:
+ausentes en el 31,3\% y el 53,2\% de los documentos respectivamente.
+
+\begin{lstlisting}[language=XMLL,caption={Estructura de un documento del corpus.},label=lst:xml]
+<preguntas categoria="Politica y Gobierno">
+ <document>
+  <uri>3086062</uri>
+  <subject>Pregunta del usuario</subject>
+  <content>Detalle (opcional)</content>
+  <bestanswer>Mejor respuesta</bestanswer>
+  <nbestanswers>
+   <answer_item>Resp. 1</answer_item>
+  </nbestanswers>
+  <maincat>Politica y Gobierno</maincat>
+  <date>1163158230</date>
+  <id>u774726</id>
+  <best_id>u1011708</best_id>
+ </document>
+</preguntas>
+\end{lstlisting}
+
+%% ============================================
+\section{Herramientas y Tecnolog\'ias}
+%% ============================================
+
+\begin{table}[H]
+\centering
+\caption{Tecnolog\'ias utilizadas.}
+\label{tab:tech}
+\begin{tabular}{ll}
+\toprule
+\textbf{Componente} & \textbf{Tecnolog\'ia} \\
+\midrule
+BD documental & eXist-db 6.x \\
+Consultas & XQuery 3.1 \\
+Esquema & XSD 1.1 \\
+Transformaci\'on & XSLT 1.0 \\
+Validaci\'on local & Python / lxml \\
+Extracci\'on corpus & Python SAX \\
+Control versiones & Git / GitHub \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Estructura del repositorio}
+
+\begin{lstlisting}[caption={Estructura del repositorio.}]
+YahooAnswers-XML/
+|-- src/
+|   |-- extraer_categorias.py
+|   +-- extraer_preguntas.py
+|-- existdb/
+|   |-- cargar_existdb.py
+|   +-- ejecutar_xquery.py
+|-- xquery/   (4 consultas .xq)
+|-- xsd/      yahoo_answers.xsd
+|-- xslt/     es_html.xsl, it_html.xsl
++-- data/     preguntas_*.xml
+\end{lstlisting}
+
+%% ============================================
+\section{Dise\~no del Esquema XML (XSD)}
+%% ============================================
+
+\subsection{XSD original}
+
+El fichero \texttt{yahoo\_answers.xsd} describe formalmente la estructura
+del corpus. La Tabla~\ref{tab:xsd_campos} detalla los campos principales.
+
+\begin{table}[H]
+\centering
+\caption{Campos del tipo \texttt{DocumentType}.}
+\label{tab:xsd_campos}
+\begin{tabular}{p{1.9cm}p{1.4cm}p{0.6cm}p{1.0cm}}
+\toprule
+\textbf{Campo} & \textbf{Tipo XSD} & \textbf{Ob.} & \textbf{Nota} \\
+\midrule
+\texttt{uri}         & posInt.  & S\'i & ID \'unico \\
+\texttt{subject}     & string   & S\'i & Pregunta \\
+\texttt{content}     & string   & No  & Detalle \\
+\texttt{bestanswer}  & string   & S\'i & Mejor resp. \\
+\texttt{nbestanswers}& ListaR.  & S\'i & Todas resp. \\
+\texttt{date}        & long     & S\'i & Timestamp \\
+\texttt{vot\_date}   & long     & No  & Fecha voto \\
+\texttt{id}          & UserId   & S\'i & Autor \\
+\texttt{best\_id}    & UserId   & S\'i & Respond. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Se definen dos tipos simples restringidos: \texttt{CodigoIdioma}
+(patr\'on \texttt{[a-z]\{2\}}) y \texttt{UserId} (patr\'on
+\texttt{u[0-9]+}).
+
+\begin{lstlisting}[language=XMLL,caption={Fragmento del XSD original.},label=lst:xsd]
+<xs:complexType name="DocumentType">
+ <xs:all>
+  <xs:element name="uri"
+   type="xs:positiveInteger"/>
+  <xs:element name="content"
+   type="xs:string" minOccurs="0"/>
+  <xs:element name="id" type="UserId"/>
+ </xs:all>
+</xs:complexType>
+<xs:simpleType name="UserId">
+ <xs:restriction base="xs:string">
+  <xs:pattern value="u[0-9]+"/>
+ </xs:restriction>
+</xs:simpleType>
+\end{lstlisting}
+
+\subsection{XSD ampliado}
+
+Para el an\'alisis se dise\~n\'o un esquema extendido con dos nuevos
+elementos opcionales:
+
+\begin{itemize}[leftmargin=1.5em,itemsep=0pt,topsep=2pt]
+    \item \textbf{\texttt{<metricas\_calidad>}}: campos derivados como
+          \texttt{longitud\_bestanswer}, \texttt{num\_respuestas} y
+          \texttt{tiempo\_resolucion\_seg}.
+    \item \textbf{\texttt{<red\_social>}}: anotaciones para grafos sociales
+          con \texttt{autor\_es\_respondedor}, \texttt{subcats\_usuario}
+          y \texttt{peso\_enlace}.
+\end{itemize}
+
+Todos usan \texttt{minOccurs="0"} para mantener compatibilidad.
+
+%% ============================================
+\section{Transformaciones XSLT}
+%% ============================================
+
+Se dise\~naron dos transformaciones XSLT~1.0 (\texttt{es\_html.xsl}
+e \texttt{it\_html.xsl}) que convierten los XML en p\'aginas HTML
+navegables. Cada plantilla genera: cabecera con nombre de categor\'ia
+y total de preguntas (\texttt{count(//document)}), una tarjeta por
+documento con el \texttt{subject} como t\'itulo, el \texttt{bestanswer}
+resaltado en verde, y un elemento \texttt{<details>} desplegable para
+las dem\'as respuestas.
+
+\begin{lstlisting}[language=XMLL,caption={Plantilla XSLT por documento.},label=lst:xslt]
+<xsl:template match="document">
+ <div class="documento">
+  <div class="pregunta">
+   <xsl:value-of select="subject"/>
+  </div>
+  <xsl:if test="content != ''">
+   <div class="detalle">
+    <xsl:value-of select="content"/>
+   </div>
+  </xsl:if>
+  <div class="mejor-respuesta">
+   <xsl:value-of select="bestanswer"/>
+  </div>
+ </div>
+</xsl:template>
+\end{lstlisting}
+
+Se us\'o XSLT~1.0 para garantizar compatibilidad con \texttt{lxml} sin necesidad de Saxon.
+
+%% ============================================
+\section{Carga en eXist-db}
+%% ============================================
+
+Los cuatro ficheros XML se organizan en dos subcolecciones:
+
+\begin{lstlisting}[caption={Colecciones en eXist-db.}]
+/db/yahooanswers/
+    es/  politica_y_gobierno.xml (95MB)
+         noticias_y_actualidad.xml
+    it/  politica_e_governo.xml
+         notizie_ed_eventi.xml
+\end{lstlisting}
+
+El script \texttt{cargar\_existdb.py} usa HTTP~PUT sobre la REST~API.
+Se aument\'o el l\'imite del servidor Jetty a 200~MB para acomodar
+el fichero de mayor tama\~no. La verificaci\'on mediante
+\texttt{count(collection("/db/yahooanswers")//document)}
+devuelve 16.952, coincidiendo con el total esperado.
+
+%% ============================================
+\section{Consultas XQuery}
+%% ============================================
+
+\subsection{Estad\'isticas generales}
+
+\begin{lstlisting}[language=XQuery,caption={Estadisticas por categoria.}]
+let $es := collection(
+  "/db/yahooanswers/es")//document
+let $it := collection(
+  "/db/yahooanswers/it")//document
+return <estadisticas>{
+  for $cat in distinct-values($es/maincat)
+  let $docs := $es[maincat = $cat]
+  order by count($docs) descending
+  return <categoria nombre="{$cat}">
+    <total>{count($docs)}</total>
+    <media>{format-number(
+      count($docs//answer_item)
+      div count($docs),"0.00")}
+    </media>
+  </categoria>
+}</estadisticas>
+\end{lstlisting}
+
+\begin{table}[H]
+\centering
+\caption{Estad\'isticas por categor\'ia (resultados reales).}
+\label{tab:stats}
+\begin{tabular}{p{2.0cm}rrr}
+\toprule
+\textbf{Categor\'ia} & \textbf{Docs} & \textbf{Resp.} & \textbf{Med.} \\
+\midrule
+Pol./Gob. (ES) & 12.976 & 119.262 & 9,19 \\
+Noticias (ES)  &    674 &   4.740 & 7,03 \\
+Politica (IT)  &  2.118 &  25.456 & 12,02 \\
+Notizie (IT)   &  1.184 &  11.907 & 10,06 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{An\'alisis de Redes Sociales}
+
+Esta consulta calcula la simetr\'ia de participaci\'on, los usuarios
+\textit{top} y el \textit{clustering} por categor\'ia.
+
+\begin{lstlisting}[language=XQuery,caption={Calculo de simetria.}]
+let $todos := ($es, $it)
+let $ids := distinct-values($todos/id)
+let $best := distinct-values(
+              $todos/best_id)
+let $solo_preg :=
+  $ids[not(. = $best)]
+let $solo_resp :=
+  $best[not(. = $ids)]
+let $ambas := $ids[. = $best]
+return <simetria>
+  <total>{count(distinct-values(
+    ($ids,$best)))}</total>
+  <solo_preg total="{
+    count($solo_preg)}"/>
+  <solo_resp total="{
+    count($solo_resp)}"/>
+  <ambas total="{count($ambas)}"/>
+</simetria>
+\end{lstlisting}
+
+Los resultados de la Tabla~\ref{tab:simetria} confirman la baja
+simetr\'ia caracter\'istica de estos sistemas~\cite{shen2015}:
+solo el 15,4\% de los usuarios participa en ambos roles.
+
+\begin{table}[H]
+\centering
+\caption{Simetr\'ia global de participaci\'on (12.881 usuarios).}
+\label{tab:simetria}
+\begin{tabular}{lrr}
+\toprule
+\textbf{Rol} & \textbf{Usuarios} & \textbf{\%} \\
+\midrule
+Solo preguntan & 6.165 & 47,9 \\
+Solo responden & 4.732 & 36,7 \\
+Hacen ambas    & 1.984 & 15,4 \\
+\midrule
+\textbf{Total} & \textbf{12.881} & \textbf{100} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+La Tabla~\ref{tab:simetria_cat} muestra la simetr\'ia por categor\'ia.
+Las comunidades italianas presentan mayor simetr\'ia. Solo 2 usuarios
+participan activamente en ES e IT, confirmando que ambas comunidades
+son \textbf{pr\'acticamente independientes}.
+
+\begin{table}[H]
+\centering
+\caption{Simetr\'ia por categor\'ia.}
+\label{tab:simetria_cat}
+\begin{tabular}{p{2.1cm}rrr}
+\toprule
+\textbf{Categor\'ia} & \textbf{Preg.} & \textbf{Resp.} & \textbf{Sim.} \\
+\midrule
+Noticias (ES)  &   444 &   489 &  5,5\% \\
+Notizie (IT)   &   826 &   859 & 10,2\% \\
+Politica (IT)  & 1.022 &   994 & 15,6\% \\
+Pol./Gob. (ES) & 6.141 & 4.919 & 14,8\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+El usuario m\'as activo (\texttt{u1012406}) acumula 398 mejores
+respuestas concentradas en 2 categor\'ias, confirmando el elevado
+\textit{clustering} de los respondedores \textit{top}~\cite{shen2015}.
+
+\subsection{Calidad de Datos}
+
+\begin{lstlisting}[language=XQuery,caption={Analisis de completitud.}]
+let $todos := ($es,$it)
+return <completitud>{
+  for $c in ("content","vot_date")
+  let $aus := count($todos) -
+    count($todos[*[name()=$c]!=''])
+  return <campo nombre="{$c}"
+    pct="{format-number($aus div
+      count($todos)*100,'0.0')}%"/>
+}</completitud>
+\end{lstlisting}
+
+\begin{table}[H]
+\centering
+\caption{Completitud de campos opcionales.}
+\label{tab:completitud}
+\begin{tabular}{lrr}
+\toprule
+\textbf{Campo} & \textbf{Ausentes} & \textbf{\%} \\
+\midrule
+\texttt{content}   & 5.309 & 31,3\% \\
+\texttt{vot\_date} & 9.010 & 53,2\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Indicadores de calidad por categor\'ia.}
+\label{tab:calidad_cat}
+\begin{tabular}{p{1.9cm}rrr}
+\toprule
+\textbf{Cat.} & \textbf{Sin cont.} & \textbf{Long. B.} & \textbf{M.R.} \\
+\midrule
+Noticias (ES) & 32,5\% & 344,9 & 7,03 \\
+Notizie  (IT) & 34,2\% & 338,7 & 10,06 \\
+Politica (IT) & 24,2\% & 502,5 & 12,02 \\
+Pol./Gob.(ES) & 32,2\% & 442,1 &  9,19 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Las principales anomal\'ias detectadas son: \textbf{677 documentos}
+con \texttt{bestanswer} $<$20 caracteres; \textbf{847 documentos}
+(5,0\%) con una sola respuesta; \textbf{0 inconsistencias de fechas}
+(\texttt{date}$>$\texttt{res\_date}); y el 16,8\% de preguntas
+resueltas el mismo d\'ia de publicaci\'on.
+
+\subsection{Consultas Avanzadas}
+
+\subsubsection{Comparativa ES vs.\ IT}
+
+\begin{table}[H]
+\centering
+\caption{Comparativa comunidades ES vs.\ IT.}
+\label{tab:comparativa}
+\begin{tabular}{p{2.4cm}ll}
+\toprule
+\textbf{M\'etrica} & \textbf{ES} & \textbf{IT} \\
+\midrule
+Media resp./preg.  & 9,08  & 11,32 \\
+Long. bestanswer   & 437,3 & 443,8 \\
+Sin \texttt{content} & 32,2\% & 27,8\% \\
+Usuarios preg.     & 6.473 & 1.687 \\
+Usuarios resp.     & 5.170 & 1.548 \\
+Resueltas mismo d\'ia & 16,0\% & 19,9\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+La comunidad italiana es m\'as activa (11,32 resp./preg. frente a 9,08)
+y sus respuestas son ligeramente m\'as largas (443,8 vs 437,3 caracteres),
+sugiriendo mayor elaboraci\'on en el contexto pol\'itico italiano.
+
+\subsubsection{Palabras clave en pol\'itica}
+
+\begin{table}[H]
+\centering
+\caption{T\'erminos frecuentes en preguntas de pol\'itica.}
+\label{tab:keywords}
+\begin{tabular}{llr}
+\toprule
+\textbf{T\'ermino} & \textbf{Id.} & \textbf{Menc.} \\
+\midrule
+presidente    & ES & 732 \\
+gobierno      & ES & 429 \\
+ley           & ES & 273 \\
+governo       & IT & 112 \\
+legge         & IT &  48 \\
+inmigrante    & ES &  52 \\
+inmigraci\'on & ES &  26 \\
+immigrazione  & IT &   4 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Las menciones de inmigraci\'on en espa\~nol (78) superan ampliamente
+las italianas (6), reflejando mayor relevancia del tema en el contexto
+hispanohablante. La consulta confirma adem\'as que \textbf{0 preguntas}
+del corpus carecen de al menos una respuesta.
+
+%% ============================================
+\section{Validaci\'on}
+%% ============================================
+
+Los cuatro XML superan la validaci\'on contra \texttt{yahoo\_answers.xsd}
+con \texttt{lxml} sin errores. Las decisiones clave:
+\begin{itemize}[leftmargin=1.5em,itemsep=0pt,topsep=2pt]
+    \item \texttt{content} y \texttt{vot\_date} opcionales
+          (\texttt{minOccurs="0"}), reflejando la realidad del corpus.
+    \item \texttt{xs:long} para timestamps Unix (fuera del rango de
+          \texttt{xs:integer}).
+    \item Patr\'on \texttt{u[0-9]+} para IDs de usuario anonimizados.
+\end{itemize}
+
+La coherencia de los resultados XQuery se verific\'o cruzando conteos
+obtenidos por distintas v\'ias: el total de preguntas por categor\'ia
+(16.952) coincide con el devuelto por \texttt{count(collection(...)//document)}.
+
+%% ============================================
+\section{Estado del Desarrollo}
+%% ============================================
+
+Todos los componentes se encuentran en estado
+\textcolor{statusgreen}{\textbf{Completado}} al 25 de marzo de 2026:
+extracci\'on del corpus, XSD original y ampliado, transformaciones XSLT,
+carga en eXist-db, cuatro consultas XQuery, dashboard HTML interactivo y
+documentaci\'on completa.
+
+%% ============================================
+\section{Conclusiones y Trabajo Futuro}
+%% ============================================
+
+\subsection{Conclusiones}
+
+\begin{enumerate}[leftmargin=1.8em,itemsep=0pt,topsep=2pt]
+    \item El esquema XSD valida los 16.952 documentos documentando
+          la opcionalidad real de los campos del corpus.
+    \item Las transformaciones XSLT generan visualizaciones HTML
+          que permiten explorar el corpus de forma intuitiva.
+    \item El an\'alisis de redes confirma la \textbf{baja simetr\'ia}
+          (15,4\% participan en ambos roles) y el \textit{clustering}
+          elevado de respondedores \textit{top}.
+    \item Las comunidades ES e IT son \textbf{pr\'acticamente independientes}
+          (solo 2 usuarios en ambas).
+    \item La calidad del corpus es alta: 0 inconsistencias de fechas
+          y 0 preguntas sin respuesta.
+\end{enumerate}
+
+\subsection{Trabajo futuro}
+
+\begin{itemize}[leftmargin=1.5em,itemsep=0pt,topsep=2pt]
+    \item \textbf{\'Indices eXist-db}: eliminar \textit{timeouts} en
+          consultas de ordenaci\'on global.
+    \item \textbf{Anotaci\'on RDF}: enriquecer el XSD con sem\'antica
+          para integraci\'on con ontolog\'ias externas.
+    \item \textbf{Grafo social}: exportar datos de usuarios a GraphML
+          o JSON-LD para visualizaci\'on con Gephi.
+    \item \textbf{Comparativa multilingue}: ampliar a franc\'es,
+          alem\'an y portugu\'es.
+\end{itemize}
+
+%% ============================================
+\section{Planificaci\'on temporal}
+%% ============================================
+
+\begin{table}[H]
+\centering
+\caption{Planificaci\'on temporal del proyecto.}
+\label{tab:planning}
+\begin{tabular}{p{1.8cm}p{2.8cm}l}
+\toprule
+\textbf{Fase} & \textbf{Actividades} & \textbf{Per\'iodo} \\
+\midrule
+Preparaci\'on & Repo, eXist-db, XML & 16--17 mar \\
+XSD           & Original y ampliado & 17--19 mar \\
+Validaci\'on  & validate\_xml.py    & 19 mar \\
+XSLT          & ES e IT a HTML      & 19 mar \\
+Carga         & cargar\_existdb.py  & 20 mar \\
+XQuery        & 4 consultas         & 20--22 mar \\
+Dashboard     & ver\_resultados.py  & 24 mar \\
+Documentaci\'on & Memoria, LabBook  & 23--25 mar \\
+Entrega       & Empaquetado final   & 25 mar \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+%% ============================================
+% Referencias
+%% ============================================
+\begin{thebibliography}{10}
+
+\bibitem{yahoowebscope}
+Yahoo! Research,
+``Yahoo! Webscope Dataset ydata-yanswers-all-questions-v1\_0,''
+Yahoo! Research Alliance Webscope Program, 2007.
+[Online]. Disponible: \url{https://webscope.sandbox.yahoo.com/}
+
+\bibitem{yahooanswers-xml}
+M. Avil\'es Rodr\'iguez y M. Amagliani,
+``YahooAnswers-XML: An\'alisis con XML y eXist-db,''
+Repositorio GitHub, 2026.
+[Online]. Disponible: \url{https://github.com/matteoamagliani/YahooAnswers-XML}
+
+\bibitem{shen2015}
+H. Shen, Z. Li, J. Liu y J.~E. Grant,
+``Knowledge Sharing in the Online Social Network of Yahoo! Answers
+and Its Implications,''
+\textit{IEEE Trans. Comput.}, vol.~64, no.~6, pp. 1715--1728, 2015.
+
+\bibitem{adamic2008}
+L.~A. Adamic, J. Zhang, E. Bakshy y M.~S. Ackerman,
+``Knowledge Sharing and Yahoo Answers: Everyone Knows Something,''
+in \textit{Proc. WWW 2008}, Beijing, China, pp. 665--674.
+
+\bibitem{shah2010}
+C. Shah y J. Pomerantz,
+``Evaluating and Predicting Answer Quality in Community QA,''
+in \textit{Proc. ACM SIGIR 2010}, Geneva, pp. 411--418.
+
+\bibitem{fichman2011}
+P. Fichman,
+``A Comparative Assessment of Answer Quality on Four Question
+Answering Sites,''
+\textit{J. Inf. Sci.}, vol.~37, no.~5, pp. 476--486, 2011.
+
+\bibitem{existdb}
+eXist Solutions,
+``eXist-db Open Source Native XML Database,''
+2024. [Online]. Disponible: \url{https://exist-db.org/}
+
+\bibitem{xquery31}
+W3C,
+``XQuery 3.1: An XML Query Language,''
+W3C Recommendation, 2017.
+[Online]. Disponible: \url{https://www.w3.org/TR/xquery-31/}
+
+\bibitem{xsd11}
+W3C,
+``W3C XML Schema Definition Language (XSD) 1.1,''
+W3C Recommendation, 2012.
+[Online]. Disponible: \url{https://www.w3.org/TR/xmlschema11-1/}
+
+\bibitem{xslt10}
+W3C,
+``XSL Transformations (XSLT) 1.0,''
+W3C Recommendation, 1999.
+[Online]. Disponible: \url{https://www.w3.org/TR/xslt}
+
+\end{thebibliography}
+
+\end{document}
