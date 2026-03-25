@@ -109,17 +109,26 @@ def parse_calidad(root):
     }
 
 
+# Términos que pertenecen al español vs italiano
+_TERMS_IT = {"immigrazione", "immigrante", "legge", "governo"}
+
+
 def parse_avanzadas(root):
+    comparativa = [
+        {"metrica": i.get("metrica"), "ES": i.get("ES"), "IT": i.get("IT")}
+        for i in root.findall("comparativa_es_it/item")
+    ]
+    all_temas = sorted(
+        [{"texto": t.get("texto"), "n": int(t.get("menciones", 0))}
+         for t in root.findall("temas_politica/termino")],
+        key=lambda x: x["n"], reverse=True
+    )
+    temas_es = [t for t in all_temas if t["texto"] not in _TERMS_IT]
+    temas_it = [t for t in all_temas if t["texto"] in _TERMS_IT]
     return {
-        "comparativa": [
-            {"metrica": i.get("metrica"), "ES": i.get("ES"), "IT": i.get("IT")}
-            for i in root.findall("comparativa_es_it/item")
-        ],
-        "temas": sorted(
-            [{"texto": t.get("texto"), "n": int(t.get("menciones", 0))}
-             for t in root.findall("temas_politica/termino")],
-            key=lambda x: x["n"], reverse=True
-        ),
+        "comparativa": comparativa,
+        "temas_es": temas_es,
+        "temas_it": temas_it,
         "sin_respuestas": int((root.find("sin_respuestas/resultado") or ET.Element("x")).get("total", 0)),
     }
 
@@ -140,6 +149,9 @@ def build_html(est, red, cal, avz):
     total_resp = sum(c["respuestas"] for c in cats)
     uq_preg = sum(t.get("uq_preg", 0) for t in tot.values())
     uq_resp = sum(t.get("uq_resp", 0) for t in tot.values())
+
+    # Solo categorías de Política y Gobierno para los gráficos de estadísticas
+    cats_pol = [c for c in cats if "gobierno" in c["nombre"].lower() or "governo" in c["nombre"].lower()]
 
     cat_es_pol = next((c for c in cats if "Gobierno" in c["nombre"] and c["lang"] == "es"), {"subcats": []})
     cat_it_pol = next((c for c in cats if "governo" in c["nombre"]), {"subcats": []})
@@ -300,7 +312,7 @@ td:last-child{{font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var
   </div>
   <div class="chips">
     <span class="chip chip-es">ES · Política · Actualidad</span>
-    <span class="chip chip-it">IT · Politica · Attualità</span>
+    <span class="chip chip-it">IT · Politica · Eventi</span>
   </div>
 </header>
 
@@ -322,10 +334,10 @@ td:last-child{{font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var
     <div class="card stat"><div class="num" style="color:var(--green)">{uq_resp:,}</div><div class="lbl">Usuarios distintos respondiendo</div></div>
   </div>
   <div class="grid g2">
-    <div class="chart-card"><h3>Preguntas por categoria</h3><div class="ch"><canvas id="cPreg"></canvas></div></div>
-    <div class="chart-card"><h3>Media de respuestas por pregunta</h3><div class="ch"><canvas id="cMedia"></canvas></div></div>
+    <div class="chart-card"><h3>Preguntas — Política y Gobierno (ES vs IT)</h3><div class="ch"><canvas id="cPreg"></canvas></div></div>
+    <div class="chart-card"><h3>Media de respuestas por pregunta (ES vs IT)</h3><div class="ch"><canvas id="cMedia"></canvas></div></div>
   </div>
-  <div class="chart-card"><h3>Subcategorias — Politica y Gobierno (ES)</h3><div class="ch"><canvas id="cSubES"></canvas></div></div>
+  <div class="chart-card"><h3>Subcategorias — Política y Gobierno (ES)</h3><div class="ch"><canvas id="cSubES"></canvas></div></div>
   <div class="chart-card"><h3>Subcategorias — Politica e governo (IT)</h3><div class="ch-sm"><canvas id="cSubIT"></canvas></div></div>
 </div>
 
@@ -380,11 +392,16 @@ td:last-child{{font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var
     </table>
   </div>
   <div class="grid g2" style="margin-top:0">
-    <div class="chart-card" style="margin-bottom:0"><h3>Palabras clave en preguntas de politica</h3><div class="ch"><canvas id="cTemas"></canvas></div></div>
-    <div class="info-box">
-      <div class="big" style="color:var(--green)">{avz['sin_respuestas']}</div>
-      <div class="desc">Preguntas sin ninguna respuesta. Todas las preguntas del corpus tienen al menos una respuesta registrada.</div>
-    </div>
+    <div class="chart-card" style="margin-bottom:0"><h3>Palabras clave — Política ES <span class="badge es">ES</span></h3><div class="ch"><canvas id="cTemasES"></canvas></div></div>
+    <div class="chart-card" style="margin-bottom:0"><h3>Parole chiave — Politica IT <span class="badge it">IT</span></h3><div class="ch"><canvas id="cTemasIT"></canvas></div></div>
+  </div>
+  <div class="chart-card" style="margin-top:16px">
+    <h3>Longitud media de respuestas y preguntas — ES vs IT</h3>
+    <div class="ch"><canvas id="cLongComp"></canvas></div>
+  </div>
+  <div class="info-box" style="margin-top:16px">
+    <div class="big" style="color:var(--green)">{avz['sin_respuestas']}</div>
+    <div class="desc">Preguntas sin ninguna respuesta. Todas las preguntas del corpus tienen al menos una respuesta registrada.</div>
   </div>
 </div>
 
@@ -437,8 +454,37 @@ function barH(id, labels, data, colors) {{
   }});
 }}
 
-barV('cPreg', {js_labels([c['nombre'] for c in cats])}, {js_list([c['preguntas'] for c in cats])}, C4a);
-barV('cMedia', {js_labels([c['nombre'] for c in cats])}, {js_list([c['media'] for c in cats])}, C4a, 'Media respuestas');
+// Gráficos sección 1 — solo Política y Gobierno
+new Chart(document.getElementById('cPreg'), {{
+  type:'bar',
+  data:{{
+    labels:['Política y Gobierno (ES)','Politica e governo (IT)'],
+    datasets:[{{
+      data:[{cat_es_pol.get('preguntas', 0)},{cat_it_pol.get('preguntas', 0)}],
+      backgroundColor:['rgba(74,184,240,0.75)','rgba(240,107,74,0.75)'],
+      borderRadius:5,borderSkipped:false
+    }}]
+  }},
+  options:{{responsive:true,maintainAspectRatio:false,
+    plugins:{{legend:{{display:false}}}},
+    scales:{{y:{{grid:G,border:{{display:false}},ticks:{{color:'#6b7080'}}}},x:{{grid:{{display:false}},border:{{display:false}},ticks:{{color:'#6b7080'}}}}}}
+  }}
+}});
+new Chart(document.getElementById('cMedia'), {{
+  type:'bar',
+  data:{{
+    labels:['Política y Gobierno (ES)','Politica e governo (IT)'],
+    datasets:[{{
+      data:[{cat_es_pol.get('media', 0)},{cat_it_pol.get('media', 0)}],
+      backgroundColor:['rgba(74,184,240,0.75)','rgba(240,107,74,0.75)'],
+      borderRadius:5,borderSkipped:false
+    }}]
+  }},
+  options:{{responsive:true,maintainAspectRatio:false,
+    plugins:{{legend:{{display:false}}}},
+    scales:{{y:{{grid:G,border:{{display:false}},ticks:{{color:'#6b7080'}},title:{{display:true,text:'Media respuestas',color:'#6b7080'}}}},x:{{grid:{{display:false}},border:{{display:false}},ticks:{{color:'#6b7080'}}}}}}
+  }}
+}});
 barH('cSubES', {subcat_es_labels}, {subcat_es_data}, 'rgba(74,184,240,0.75)');
 barH('cSubIT', {subcat_it_labels}, {subcat_it_data}, 'rgba(240,107,74,0.75)');
 
@@ -514,10 +560,41 @@ barV('cMedR',
   {js_list([c['media_resp'] for c in cal['por_cat']])},
   C4a, 'Media respuestas');
 
-barH('cTemas',
-  {js_labels([t['texto'] for t in avz['temas']])},
-  {js_list([t['n'] for t in avz['temas']])},
-  'rgba(123,106,245,0.8)');
+// Palabras clave separadas por idioma
+barH('cTemasES',
+  {js_labels([t['texto'] for t in avz['temas_es']])},
+  {js_list([t['n'] for t in avz['temas_es']])},
+  'rgba(74,184,240,0.8)');
+barH('cTemasIT',
+  {js_labels([t['texto'] for t in avz['temas_it']])},
+  {js_list([t['n'] for t in avz['temas_it']])},
+  'rgba(240,107,74,0.8)');
+
+new Chart(document.getElementById('cLongComp'), {{
+  type: 'bar',
+  data: {{
+    labels: {js_labels([r['metrica'] for r in avz['comparativa'] if r['metrica'] in ('Media longitud bestanswer', 'Media respuestas/pregunta')])},
+    datasets: [
+      {{
+        label: 'ES',
+        data: {js_list([float(r['ES'].replace('%','')) for r in avz['comparativa'] if r['metrica'] in ('Media longitud bestanswer', 'Media respuestas/pregunta')])},
+        backgroundColor: 'rgba(74,184,240,0.75)', borderRadius: 5, borderSkipped: false
+      }},
+      {{
+        label: 'IT',
+        data: {js_list([float(r['IT'].replace('%','')) for r in avz['comparativa'] if r['metrica'] in ('Media longitud bestanswer', 'Media respuestas/pregunta')])},
+        backgroundColor: 'rgba(240,107,74,0.75)', borderRadius: 5, borderSkipped: false
+      }}
+    ]
+  }},
+  options: {{responsive:true,maintainAspectRatio:false,
+    plugins:{{legend:{{position:'top',labels:{{color:'#6b7080',boxWidth:12,padding:16}}}}}},
+    scales:{{
+      x:{{grid:{{display:false}},border:{{display:false}},ticks:{{color:'#6b7080'}}}},
+      y:{{grid:G,border:{{display:false}},ticks:{{color:'#6b7080'}}}}
+    }}
+  }}
+}});
 </script>
 </body>
 </html>"""
